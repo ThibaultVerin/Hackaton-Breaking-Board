@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import './Board.scss';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 
 import { UserContext } from '../../context/UserContext';
 
@@ -82,24 +82,30 @@ const Board = () => {
   const [userID, setUserID] = useState();
   const currentUser = users[0];
   console.log(board);
-  const socketRef = useRef();
-  socketRef.current = io.connect('/');
-  useEffect(() => {
-    console.log(socketRef.current);
+  // const socketRef = useRef();
+  // socket = io.connect('/');
+  const socket = io('http://localhost:5000');
 
-    socketRef.current.on('userId', (id) => {
+  useEffect(() => {
+    console.log(socket);
+
+    socket.on('connection', () => {
+      console.log('user connected');
+    });
+
+    socket.on('userId', (id) => {
       console.log(id);
       currentUser.id = id;
       setUsers([currentUser]);
       console.log(users);
     });
 
-    socketRef.current.emit('sendCurrentUser', users[0]);
-    socketRef.current.on('sendNewUser', (newUser) => {
+    socket.emit('sendCurrentUser', users[0]);
+    socket.on('sendNewUser', (newUser) => {
       setUsers((prevState) => [...prevState, newUser]);
-      socketRef.current.emit('sendCurrentUser', users[0]);
+      socket.emit('sendCurrentUser', users[0]);
     });
-  }, [socketRef]);
+  }, []);
 
   return <div className='board-container'>{drawBoard(board, users)}</div>;
 };
