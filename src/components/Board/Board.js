@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Board.scss';
-import avatar from '../../avatar.jpeg';
+
+import Cell from './Cell';
 
 export const createEmptyBoard = () => {
   const BOARD_SIZE = 10;
@@ -24,9 +25,11 @@ export const drawBoard = (board) => {
   return board.map((row) => {
     return row.map((cell, index) => {
       return (
-        <div key={index} className={cell.isWall ? 'wall' : 'cell'}>
-          {cell.isPeople && <img src={avatar} alt='avatar' />}
-        </div>
+        <Cell
+          key={index}
+          cellStyle={cell.isWall ? 'wall' : 'cell'}
+          isPlayer={cell.isPeople}
+        />
       );
     });
   });
