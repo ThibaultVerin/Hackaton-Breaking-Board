@@ -4,7 +4,7 @@ import Upload from './Upload.js';
 
 const Home = () => {
   return (
-    <div>
+    <div className='homeContainer'>
       <Upload />
     </div>
   );

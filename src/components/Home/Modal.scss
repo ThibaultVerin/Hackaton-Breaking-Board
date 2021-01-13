@@ -4,3 +4,67 @@
   margin: 0;
   padding: 0;
 }
+
+.modalBackground {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 93vh;
+  overflow: hidden;
+}
+
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 5px 0 20px;
+  background-color: pink;
+  color: black;
+  border-radius: 30px;
+}
+
+.modalHeader {
+  padding-top: 20px;
+  border-bottom: solid 3px green;
+  height: 60px;
+  margin: 30px;
+}
+
+.modalBody {
+  background-color: pink;
+  margin: 30px;
+  text-align: center;
+}
+
+.modalFooter {
+  border-top: solid 3px green;
+  margin: 30px;
+  padding-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  text-align: center;
+  align-items: center;
+  button {
+    margin-top: 0px;
+    width: 80px;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px 0px;
+    border: solid 1px black;
+    border-radius: 20px;
+    cursor: pointer;
+    &:active {
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}

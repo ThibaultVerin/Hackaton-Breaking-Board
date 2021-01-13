@@ -36,19 +36,20 @@ const Upload = () => {
   };
 
   return (
-    <div>
+    <div className='formContainer'>
       <h2>Welcome On Board !</h2>
       <form
         onSubmit={handleSubmit}
         method='POST'
         encType='multipart/form-data'
         action='uploaddufichier'
+        className='formBody'
       >
-        {/* <input
+        <input
           type='text'
-          value={title}
+          placeholder='Enter your name'
           onChange={(e) => setTitle(e.target.value)}
-        /> */}
+        />
         <br />
         <p>Select your picture</p>
         <input type='file' name='main_picture' onChange={handleUpload} />
@@ -56,28 +57,34 @@ const Upload = () => {
         <input type='submit' value='Create Your Avatar' />
         <a onClick={() => setIsModalOpen(!isModalOpen)}>how does it work ?</a>
       </form>
-      <Modal showModal={isModalOpen}>
-        <div className='modalHeaderConnexion'>
-          <h2>Lorem ipsum</h2>
-        </div>
-        <div className='modalBody'>
-          <h3>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum
-          </h3>
-        </div>
-        <div className=''>
-          {' '}
-          <button type='button' className='modalButton'>
-            Back
-          </button>
-        </div>
-      </Modal>
+      <div onClick={() => setIsModalOpen(!isModalOpen)}>
+        <Modal showModal={isModalOpen}>
+          <div className='modalHeader'>
+            <h2>Lorem ipsum</h2>
+          </div>
+          <div className='modalBody'>
+            <h3>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum
+            </h3>
+          </div>
+          <div className='modalFooter'>
+            {' '}
+            <button
+              type='button'
+              className='modalButton'
+              onClick={() => setIsModalOpen(!isModalOpen)}
+            >
+              Back
+            </button>
+          </div>
+        </Modal>
+      </div>
     </div>
   );
 };
