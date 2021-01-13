@@ -29,6 +29,7 @@ export const drawBoard = (board) => {
           key={index}
           cellStyle={cell.isWall ? 'wall' : 'cell'}
           isPlayer={cell.isPeople}
+          cell={cell}
         />
       );
     });
