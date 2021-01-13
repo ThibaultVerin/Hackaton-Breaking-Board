@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Modal from './Modal';
 import './Upload.scss';
 import axios from 'axios';
 
