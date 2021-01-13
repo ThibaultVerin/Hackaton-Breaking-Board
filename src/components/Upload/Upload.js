@@ -45,9 +45,7 @@ const Upload = () => {
         />
         <br />
         <input type='submit' value='Create Your Avatar' />
-        <button type='button' className=''>
-          How
-        </button>
+        <p>how does it work ?</p>
       </form>
     </div>
   );
