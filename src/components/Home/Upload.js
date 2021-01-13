@@ -9,25 +9,30 @@ const Upload = () => {
   const [title, setTitle] = useState('Enter your Name');
   const [mainPicture, setMainPicture] = useState(null);
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:5000/uploaddufichier')
-      .then((res) => res.data)
-      .then((data) => setPosts(data));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:5000/uploaddufichier')
+  //     .then((res) => res.data)
+  //     .then((data) => setPosts(data));
+  // }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('title', title);
+    // formData.append('title', title);
     formData.append('main_picture', mainPicture);
-
+    console.log(formData.get('main_picture'));
     axios
       .post('http://localhost:5000/uploaddufichier', formData)
-      .then((res) => res.data)
-      .then((data) =>
-        setPosts([...posts, { title, main_picture_url: data.main_picture_url }])
-      );
+      .then((res) => res.data);
+    // .then((data) =>
+    //   setPosts([...posts, { title, main_picture_url: data.main_picture_url }])
+    // );
+  };
+
+  const handleUpload = (e) => {
+    console.log(e.target.files[0]);
+    setMainPicture(e.target.files[0]);
   };
 
   return (
@@ -39,17 +44,14 @@ const Upload = () => {
         encType='multipart/form-data'
         action='uploaddufichier'
       >
-        <input
+        {/* <input
           type='text'
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-        />
+        /> */}
         <br />
         <p>Select your picture</p>
-        <input
-          type='file'
-          onChange={(e) => setMainPicture(e.target.files[0])}
-        />
+        <input type='file' name='main_picture' onChange={handleUpload} />
         <br />
         <input type='submit' value='Create Your Avatar' />
         <a onClick={() => setIsModalOpen(!isModalOpen)}>how does it work ?</a>
