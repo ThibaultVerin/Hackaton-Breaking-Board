@@ -1,6 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import './Board.scss';
 import avatar from '../../avatar.jpeg';
+import io from 'socket.io-client';
+
 import { UserContext } from '../../context/UserContext';
 
 export const createEmptyBoard = () => {
@@ -78,7 +80,19 @@ export const wall = [
 const Board = () => {
   const { users, setUsers } = useContext(UserContext);
   const [board, setBoard] = useState(createBoard(wall, users));
+  const [userID, setUserID] = useState();
   console.log(board);
+  const socketRef = useRef();
+
+  useEffect(() => {
+    socketRef.current = io.connect('/');
+
+    socketRef.current.on('your id', (id) => {
+      setUserID(id);
+    });
+
+    socketRef.current.on('message', (message) => {});
+  }, []);
 
   return <div className='board-container'>{drawBoard(board, users)}</div>;
 };
