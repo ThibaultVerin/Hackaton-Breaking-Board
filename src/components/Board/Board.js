@@ -65,6 +65,11 @@ export const createBoard = (wall, people) => {
 export const wall = [
   { x: 0, y: 4 },
   { x: 1, y: 4 },
+  { x: 3, y: 0 },
+  { x: 3, y: 1 },
+  { x: 3, y: 2 },
+  { x: 5, y: 9 },
+  { x: 5, y: 8 },
 ];
 
 const Board = () => {
