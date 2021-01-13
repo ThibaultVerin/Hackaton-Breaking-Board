@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import Modal from './Modal';
 import './Upload.scss';
 import axios from 'axios';
 
 const Upload = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState('Enter your Name');
   const [mainPicture, setMainPicture] = useState(null);
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/posts')
+      .get('http://localhost:5000/uploaddufichier')
       .then((res) => res.data)
       .then((data) => setPosts(data));
   }, []);
@@ -21,7 +23,7 @@ const Upload = () => {
     formData.append('main_picture', mainPicture);
 
     axios
-      .post('http://localhost:5000/posts', formData)
+      .post('http://localhost:5000/uploaddufichier', formData)
       .then((res) => res.data)
       .then((data) =>
         setPosts([...posts, { title, main_picture_url: data.main_picture_url }])
@@ -31,7 +33,12 @@ const Upload = () => {
   return (
     <div>
       <h2>Welcome On Board !</h2>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        method='POST'
+        encType='multipart/form-data'
+        action='uploaddufichier'
+      >
         <input
           type='text'
           value={title}
@@ -45,8 +52,30 @@ const Upload = () => {
         />
         <br />
         <input type='submit' value='Create Your Avatar' />
-        <p>how does it work ?</p>
+        <a onClick={() => setIsModalOpen(!isModalOpen)}>how does it work ?</a>
       </form>
+      <Modal showModal={isModalOpen}>
+        <div className='modalHeaderConnexion'>
+          <h2>Lorem ipsum</h2>
+        </div>
+        <div className='modalBody'>
+          <h3>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum
+          </h3>
+        </div>
+        <div className=''>
+          {' '}
+          <button type='button' className='modalButton'>
+            Back
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };
