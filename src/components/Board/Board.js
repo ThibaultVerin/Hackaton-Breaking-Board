@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import './Board.scss';
 import avatar from '../../avatar.jpeg';
+import { UserContext } from '../../context/UserContext';
 
 export const createEmptyBoard = () => {
   const BOARD_SIZE = 10;
@@ -20,14 +21,16 @@ export const createEmptyBoard = () => {
   return board;
 };
 
-export const drawBoard = (board) => {
+export const drawBoard = (board, user) => {
   return board.map((row) => {
     return row.map((cell, index) => {
-      return (
-        <div key={index} className={cell.isWall ? 'wall' : 'cell'}>
-          {cell.isPeople && <img src={avatar} alt='avatar' />}
-        </div>
-      );
+      return user.map((u) => {
+        return (
+          <div key={index} className={cell.isWall ? 'wall' : 'cell'}>
+            {cell.isPeople && <img src={u.avatar} alt='avatar' />}
+          </div>
+        );
+      });
     });
   });
 };
@@ -73,11 +76,11 @@ export const wall = [
 ];
 
 const Board = () => {
-  const [users, setUsers] = useState([{ x: 0, y: 1 }]);
+  const { users, setUsers } = useContext(UserContext);
   const [board, setBoard] = useState(createBoard(wall, users));
   console.log(board);
 
-  return <div className='board-container'>{drawBoard(board)}</div>;
+  return <div className='board-container'>{drawBoard(board, users)}</div>;
 };
 
 export default Board;
