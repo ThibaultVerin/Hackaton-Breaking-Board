@@ -4,3 +4,15 @@
   margin: 0;
   padding: 0;
 }
+
+.cell {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+.wall {
+  width: 100px;
+  height: 100px;
+  background-color: grey;
+}
