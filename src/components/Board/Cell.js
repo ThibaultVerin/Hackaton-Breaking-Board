@@ -10,7 +10,7 @@ export default function Cell(props) {
   };
 
   return (
-    <div className={cellStyle} onClick={() => handleClick(cell)}>
+    <div className={cellStyle} onClick={(cell) => handleClick(cell)}>
       {isPlayer && (
         <img
           src={avatar}

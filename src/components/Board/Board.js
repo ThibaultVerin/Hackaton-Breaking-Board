@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Board.scss';
-
 import Cell from './Cell';
 
 export const createEmptyBoard = () => {
@@ -75,6 +74,7 @@ const Board = () => {
   const [users, setUsers] = useState([{ x: 0, y: 1 }]);
   const [board, setBoard] = useState(createBoard(wall, users));
   console.log(board);
+  console.log(users);
 
   return <div className='board-container'>{drawBoard(board)}</div>;
 };
