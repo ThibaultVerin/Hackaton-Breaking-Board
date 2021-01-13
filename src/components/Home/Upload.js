@@ -4,17 +4,9 @@ import './Upload.scss';
 import axios from 'axios';
 
 const Upload = () => {
-  const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState('Enter your Name');
   const [mainPicture, setMainPicture] = useState(null);
   const [users, setUsers] = useState([]);
-
-  /*   useEffect(() => {
-    axios
-      .get('http://localhost:5000/posts')
-      .then((res) => res.data)
-      .then((data) => setPosts(data));
-  }, []); */
 
   const handleSubmit = (event) => {
     event.preventDefault();
