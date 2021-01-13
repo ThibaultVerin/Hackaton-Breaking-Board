@@ -1,4 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import './Board.scss';
+import avatar from '../../avatar.jpeg';
+
 export const createEmptyBoard = () => {
   const BOARD_SIZE = 10;
   const board = new Array(BOARD_SIZE);
@@ -9,7 +12,7 @@ export const createEmptyBoard = () => {
       board[x][y] = {
         x,
         y,
-        isPlayer: false,
+        isPeople: false,
         isWall: false,
       };
     }
@@ -20,7 +23,11 @@ export const createEmptyBoard = () => {
 export const drawBoard = (board) => {
   return board.map((row) => {
     return row.map((cell, index) => {
-      return <div key={index} className={cell.isWall ? 'wall' : 'cell'}></div>;
+      return (
+        <div key={index} className={cell.isWall ? 'wall' : 'cell'}>
+          {cell.isPeople && <img src={avatar} alt='avatar' />}
+        </div>
+      );
     });
   });
 };
@@ -30,17 +37,28 @@ export const populateWithWall = (board, wall) => {
     row.forEach((cell) => {
       wall.forEach((wCell) => {
         if (wCell.x === cell.x && wCell.y === cell.y) {
-          console.log('mur');
           return (cell.isWall = true);
         }
       });
     });
   });
 };
+export const populateWithPeople = (board, people) => {
+  board.forEach((row) => {
+    row.forEach((cell) => {
+      people.forEach((p) => {
+        if (p.x === cell.x && p.y === cell.y) {
+          return (cell.isPeople = true);
+        }
+      });
+    });
+  });
+};
 
-export const createBoard = (wall) => {
+export const createBoard = (wall, people) => {
   const b = createEmptyBoard();
   populateWithWall(b, wall);
+  populateWithPeople(b, people);
   return b;
 };
 
@@ -48,3 +66,13 @@ export const wall = [
   { x: 0, y: 4 },
   { x: 1, y: 4 },
 ];
+
+const Board = () => {
+  const [users, setUsers] = useState([{ x: 0, y: 1 }]);
+  const [board, setBoard] = useState(createBoard(wall, users));
+  console.log(board);
+
+  return <div className='board-container'>{drawBoard(board)}</div>;
+};
+
+export default Board;
