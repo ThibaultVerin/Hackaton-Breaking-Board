@@ -5,13 +5,16 @@ import './Upload.scss';
 import axios from 'axios';
 import { UserContext } from '../../context/UserContext';
 import { Link } from 'react-router-dom';
+import uuid from 'react-uuid';
 
 const Upload = () => {
   const [title, setTitle] = useState('');
   const [mainPicture, setMainPicture] = useState(null);
 
-  const { users, setUsers } = useContext(UserContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { users, setUsers, currentUser, setCurrentUser } = useContext(
+    UserContext
+  );
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,14 +26,16 @@ const Upload = () => {
       'http://localhost:5000/uploaddufichier',
       formData
     );
-    await setUsers([
-      {
-        name: res.data.name,
-        avatar: `http://localhost:5000/${res.data.path}`,
-        x: 0,
-        y: 0,
-      },
-    ]);
+
+    const newUser = {
+      name: res.data.name,
+      avatar: `http://localhost:5000/${res.data.path}`,
+      x: Math.floor(Math.random() * 10),
+      y: Math.floor(Math.random() * 10),
+      id: uuid(),
+    };
+    await setCurrentUser(newUser);
+    await setUsers([newUser]);
   };
 
   return (
