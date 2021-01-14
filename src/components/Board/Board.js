@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
-import './Board.scss';
 import Cell from './Cell';
+import React, { useState, useContext, useEffect, useRef } from 'react';
+import './Board.scss';
+import avatar from '../../avatar.jpeg';
+import io from 'socket.io-client';
+
+import { UserContext } from '../../context/UserContext';
 
 export const createEmptyBoard = () => {
   const BOARD_SIZE = 10;
@@ -20,17 +24,24 @@ export const createEmptyBoard = () => {
   return board;
 };
 
-export const drawBoard = (board) => {
+export const drawBoard = (board, user) => {
   return board.map((row) => {
     return row.map((cell, index) => {
-      return (
-        <Cell
-          key={index}
-          cellStyle={cell.isWall ? 'wall' : 'cell'}
-          isPlayer={cell.isPeople}
-          cell={cell}
-        />
-      );
+      // return (
+      //   <Cell
+      //     key={index}
+      //     cellStyle={cell.isWall ? 'wall' : 'cell'}
+      //     isPlayer={cell.isPeople}
+      //     cell={cell}
+      //   />
+      // );
+      return user.map((u) => {
+        return (
+          <div key={index} className={cell.isWall ? 'wall' : 'cell'}>
+            {cell.isPeople && <img src={u.avatar} alt='avatar' />}
+          </div>
+        );
+      });
     });
   });
 };
@@ -68,15 +79,32 @@ export const createBoard = (wall, people) => {
 export const wall = [
   { x: 0, y: 4 },
   { x: 1, y: 4 },
+  { x: 3, y: 0 },
+  { x: 3, y: 1 },
+  { x: 3, y: 2 },
+  { x: 5, y: 9 },
+  { x: 5, y: 8 },
 ];
 
 const Board = () => {
-  const [users, setUsers] = useState([{ x: 0, y: 1 }]);
+  const { users, setUsers } = useContext(UserContext);
   const [board, setBoard] = useState(createBoard(wall, users));
+  const [userID, setUserID] = useState();
   console.log(board);
   console.log(users);
+  const socketRef = useRef();
 
-  return <div className='board-container'>{drawBoard(board)}</div>;
+  useEffect(() => {
+    socketRef.current = io.connect('/');
+
+    socketRef.current.on('your id', (id) => {
+      setUserID(id);
+    });
+
+    socketRef.current.on('message', (message) => {});
+  }, []);
+
+  return <div className='board-container'>{drawBoard(board, users)}</div>;
 };
 
 export default Board;

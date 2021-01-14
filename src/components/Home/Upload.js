@@ -1,31 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+/* import Modal from './Modal'; */
 import './Upload.scss';
 import axios from 'axios';
+import { UserContext } from '../../context/UserContext';
+import { Link } from 'react-router-dom';
 
 const Upload = () => {
-  const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState('Enter your Name');
   const [mainPicture, setMainPicture] = useState(null);
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:5000/posts')
-      .then((res) => res.data)
-      .then((data) => setPosts(data));
-  }, []);
+  const { users, setUsers } = useContext(UserContext);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append('title', title);
     formData.append('main_picture', mainPicture);
 
-    axios
-      .post('http://localhost:5000/posts', formData)
-      .then((res) => res.data)
-      .then((data) =>
-        setPosts([...posts, { title, main_picture_url: data.main_picture_url }])
-      );
+    const res = await axios.post(
+      'http://localhost:5000/uploaddufichier',
+      formData
+    );
+    await setUsers([
+      {
+        name: res.data.name,
+        avatar: `http://localhost:5000/${res.data.path}`,
+        x: 0,
+        y: 0,
+      },
+    ]);
   };
 
   return (
@@ -47,6 +50,7 @@ const Upload = () => {
         <input type='submit' value='Create Your Avatar' />
         <p>how does it work ?</p>
       </form>
+      <Link to='/board'>Join</Link>
     </div>
   );
 };
