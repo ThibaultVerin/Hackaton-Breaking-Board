@@ -1,45 +1,60 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import io from 'socket.io-client';
-import './App.css';
+import { UserContext } from '../../context/UserContext';
+import '../Chat.scss';
 
-const App = () => {
-  const [yourID, setYourID] = useState();
-  const [messages, setMessages] = useState([]);
+const CoffeeChat = () => {
+  const { users, setUsers, currentUser, setCurrentUSer, socket } = useContext(
+    UserContext
+  );
+  const [messageArray, setMessageArray] = useState([]);
   const [message, setMessage] = useState('');
-
-  const socketRef = useRef();
-
+  console.log(socket);
   useEffect(() => {
-    socketRef.current = io.connect('/');
-    socketRef.current.on('your id', (id) => {
-      setYourID(id);
-    });
-
-    socketRef.current.on('message', (message) => {
-      console.log('here');
+    socket.on('message', (message) => {
+      console.log(message);
       receivedMessage(message);
     });
   }, []);
 
-  function receivedMessage(message) {
-    setMessages((oldMsgs) => [...oldMsgs, message]);
-  }
-
-  function sendMessage(e) {
+  const receivedMessage = (message) => {
+    setMessageArray((oldMsgs) => [...oldMsgs, message]);
+  };
+  console.log(currentUser);
+  const sendMessage = (e) => {
     e.preventDefault();
     const messageObject = {
       body: message,
-      id: yourID,
+      name: currentUser.name,
     };
     setMessage('');
-    socketRef.current.emit('send message', messageObject);
-  }
+    socket.emit('send message', messageObject);
+  };
 
-  function handleChange(e) {
+  const handleChatChange = (e) => {
     setMessage(e.target.value);
-  }
-
-  return <></>;
+  };
+  return (
+    <div className='ChatContainer'>
+      Let's chat !
+      {messageArray.map((message, index) => {
+        return (
+          <p key={index}>
+            {message.name}: {message.body}
+          </p>
+        );
+      })}
+      <div className='textZone'>
+        <form onSubmit={sendMessage}>
+          <textarea
+            onChange={handleChatChange}
+            placeholder='say something...'
+          />
+          <button type='submit'>Send</button>
+        </form>
+      </div>
+    </div>
+  );
 };
 
-export default App;
+export default CoffeeChat;

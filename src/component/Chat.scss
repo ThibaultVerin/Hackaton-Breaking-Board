@@ -1,0 +1,12 @@
+.ChatContainer {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  width: 200px;
+  height: 200px;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}

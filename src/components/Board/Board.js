@@ -1,9 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import './Board.scss';
-import avatar from '../../avatar.jpeg';
-import io from 'socket.io-client';
-import uuid from 'react-uuid';
 import Cell from './Cell';
+import CoffeeChat from '../../component/home/Chat';
 import Background from '../Home/Background';
 
 import { UserContext } from '../../context/UserContext';
@@ -187,21 +185,14 @@ const Board = () => {
   const initialBoard = createBoard(tree, desk, computer, coffee, wall, users);
 
   const [board, setBoard] = useState(initialBoard);
-  const [userID, setUserID] = useState();
-  console.log(board);
-  const socketRef = useRef();
   useEffect(() => {
     const newBoard = createBoard(tree, desk, computer, coffee, wall, users);
     console.log('set new board');
     setBoard(newBoard);
   }, [users]);
 
-  // const socketRef = useRef();
-  // socket = io.connect('/');
-
   useEffect(() => {
     let usersRegistered = [];
-    console.log(socket);
     socket.emit('sendCurrentUser', currentUser);
 
     socket.on('connect', () => {});
@@ -246,6 +237,7 @@ const Board = () => {
     <div>
       <Background />
       <div className='board-container'>{drawBoard(board, users)}</div>
+      <CoffeeChat />
     </div>
   );
 };

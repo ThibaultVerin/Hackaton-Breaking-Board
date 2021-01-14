@@ -23,7 +23,7 @@ export default function Cell(props) {
     if (cell.isCoffee) {
       return 'coffeeAction';
     }
-
+    console.log(users);
     socket.emit('currentUserMove', newCurrentUser);
   };
   return (
