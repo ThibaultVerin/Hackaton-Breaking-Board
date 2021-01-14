@@ -266,6 +266,7 @@ const Board = () => {
       setUsers(newUsersArray);
     });
   }, []);
+
   return (
     <div>
       <Background />

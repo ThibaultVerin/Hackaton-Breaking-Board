@@ -9,6 +9,7 @@ export default function Cell(props) {
   );
   let newCurrentUser = {};
   const handleClick = (e) => {
+    console.log(e);
     const userIndex = users.findIndex((user) => user.id === currentUser.id);
     console.log(userIndex);
 
