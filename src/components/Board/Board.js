@@ -6,12 +6,12 @@ import io from 'socket.io-client';
 import { UserContext } from '../../context/UserContext';
 
 export const createEmptyBoard = () => {
-  const BOARD_SIZE = 15;
+  const BOARD_SIZE = 10;
   const board = new Array(BOARD_SIZE);
 
   for (let x = 0; x < BOARD_SIZE; x++) {
-    board[x] = new Array(10);
-    for (let y = 0; y < 10; y++) {
+    board[x] = new Array(BOARD_SIZE);
+    for (let y = 0; y < BOARD_SIZE; y++) {
       board[x][y] = {
         x,
         y,
@@ -142,17 +142,40 @@ export const createBoard = (tree, desk, computer, coffee, wall, people) => {
 
 export const wall = [
   { x: 0, y: 6 },
-  { x: 0, y: 7 },
   { x: 1, y: 6 },
+  { x: 3, y: 6 },
+  { x: 3, y: 7 },
+  { x: 3, y: 8 },
+  { x: 3, y: 9 },
+  { x: 2, y: 0 },
+  { x: 2, y: 1 },
+  { x: 2, y: 2 },
+  { x: 2, y: 3 },
+  { x: 3, y: 3 },
+  { x: 4, y: 3 },
+  { x: 7, y: 5 },
+  { x: 8, y: 5 },
+  { x: 9, y: 5 },
 ];
 
-export const coffee = [{ x: 2, y: 9 }];
+export const coffee = [{ x: 3, y: 1 }];
 
-export const computer = [{ x: 7, y: 0 }];
+export const computer = [{ x: 0, y: 8 }];
 
-export const desk = [{ x: 6, y: 2 }];
+export const desk = [
+  { x: 7, y: 1 },
+  { x: 7, y: 3 },
+  { x: 9, y: 1 },
+  { x: 9, y: 3 },
+];
 
-export const tree = [{ x: 7, y: 8 }];
+export const tree = [
+  { x: 0, y: 5 },
+  { x: 4, y: 9 },
+  { x: 7, y: 6 },
+  { x: 8, y: 9 },
+  { x: 9, y: 7 },
+];
 
 const Board = () => {
   const { users, setUsers } = useContext(UserContext);
