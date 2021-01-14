@@ -22,7 +22,6 @@ export default function Cell(props) {
     console.log(current);
     setUsers(newArr);
   };
-  console.log(users.name);
   return (
     <div className={cellStyle} onClick={handleClick}>
       {isPlayer && (
