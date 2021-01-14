@@ -4,3 +4,102 @@
   margin: 0;
   padding: 0;
 }
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 5%;
+  background-color: #36a9e1;
+  padding: 2%;
+  border-radius: 20px;
+  box-shadow: 6px 6px 14px 0px rgba(159, 159, 159, 0.79);
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 5%;
+}
+
+.name {
+  border-radius: 20px;
+  text-align: center;
+  padding: 2%;
+  width: 400px;
+  outline: 0;
+  outline: none;
+  border: unset;
+}
+
+.upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  text-align: center;
+  padding: 2%;
+  margin-bottom: 3%;
+  cursor: pointer;
+}
+
+.select {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: normal;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  margin-top: 5%;
+}
+
+.submit {
+  border-radius: 20px;
+  text-align: center;
+  padding: 2%;
+  width: 200px;
+  margin: 3%;
+  border: unset;
+  cursor: pointer;
+}
+
+.join {
+  width: 100px;
+  border-radius: 20px;
+  background-color: #eb5730;
+  border: 1px;
+  text-align: center;
+  padding: 2%;
+  text-decoration: none;
+  font-family: Verdana, Geneva, sans-serif;
+  color: #cfd8d4;
+  cursor: pointer;
+}
+
+.explanation {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: normal;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.title {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: normal;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+}
