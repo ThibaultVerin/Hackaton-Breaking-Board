@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import './Board.scss';
 import avatar from '../../avatar.jpeg';
 import io from 'socket.io-client';
+import Background from '../Home/Background';
 
 import { UserContext } from '../../context/UserContext';
 
@@ -182,6 +183,11 @@ const Board = () => {
     });
     socketRef.current.on('message', (message) => {});
   }, []);
-  return <div className='board-container'>{drawBoard(board, users)}</div>;
+  return (
+    <div>
+      <Background />
+      <div className='board-container'>{drawBoard(board, users)}</div>
+    </div>
+  );
 };
 export default Board;
