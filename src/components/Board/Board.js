@@ -3,6 +3,7 @@ import './Board.scss';
 import avatar from '../../avatar.jpeg';
 import io from 'socket.io-client';
 import uuid from 'react-uuid';
+import Cell from './Cell';
 
 import { UserContext } from '../../context/UserContext';
 
@@ -27,7 +28,7 @@ export const createEmptyBoard = () => {
   }
   return board;
 };
-const handleClassname = (cell) => {
+export const handleClassname = (cell) => {
   if (cell.isWall === true) {
     return 'wall';
   } else if (cell.isCoffee === true) {
@@ -42,6 +43,7 @@ const handleClassname = (cell) => {
     return 'cell';
   }
 };
+console.log(handleClassname);
 export const drawBoard = (board, user) => {
   return board.map((row) => {
     return row.map((cell, index) => {
@@ -52,7 +54,7 @@ export const drawBoard = (board, user) => {
             cellStyle={cell.isWall ? 'wall' : 'cell'}
             isPlayer={cell.isPeople}
             cell={cell}
-            handleClassname={handleClassname}
+            // handleClassname={handleClassname}
           />
         );
       });
@@ -244,19 +246,25 @@ const Board = () => {
   }, []);
 
   useEffect(() => {
-    console.log('must emit');
-
     socket.on('otherUserMove', (data) => {
-      console.log('reception nouvelles coordonnées');
-      const userIndex = users.findIndex((user) => user.id === data.id);
-      console.log(userIndex);
+      // console.log('reception nouvelles coordonnées');
+      // const userIndex = users.findIndex((user) => user.id === data.id);
+      // console.log(userIndex);
+      console.log('data', data);
 
+      console.log('users', users);
       const newUsersArray = users.filter((user) => user.id !== data.id);
+      console.log('before reception', newUsersArray);
 
       newUsersArray.push(data);
+      console.log('users', users);
+      console.log('array', newUsersArray);
+      // if (data.id === currentUser.id) {
+      //   setCurrentUser(data);
+      // }
       setUsers(newUsersArray);
     });
-  }, [currentUser]);
+  }, []);
 
   return <div className='board-container'>{drawBoard(board, users)}</div>;
 };

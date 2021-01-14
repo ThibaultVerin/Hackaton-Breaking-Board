@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../context/UserContext';
+import { handleClassname } from './Board';
 
 export default function Cell(props) {
-  const { isPlayer, cell, handleClassname } = props;
+  const { isPlayer, cell } = props;
   const { users, setUsers, currentUser, setCurrentUser, socket } = useContext(
     UserContext
   );
@@ -20,20 +21,19 @@ export default function Cell(props) {
       y: cell.y,
     };
 
-    const newUsersArray = users.filter((user) => user.id !== currentUser.id);
+    // const newUsersArray = users.filter((user) => user.id !== currentUser.id);
 
-    newUsersArray.push(newCurrentUser);
+    // newUsersArray.push(newCurrentUser);
 
-    // const [firstUser, rest] = users;
-    // const newArr = [current, rest];
-    console.log(socket);
-    console.log(newCurrentUser);
-    setCurrentUser(newCurrentUser);
-    setUsers(newUsersArray);
+    // // const [firstUser, rest] = users;
+    // // const newArr = [current, rest];
+    // console.log(newUsersArray);
+    // setCurrentUser(newCurrentUser);
+    // setUsers(newUsersArray);
     socket.emit('currentUserMove', newCurrentUser);
   };
   return (
-    <div className={handleClassname(cell)} onClick={handleClick}>
+    <div className={cell && handleClassname(cell)} onClick={handleClick}>
       {isPlayer && (
         <img
           src={cell.avatar}
