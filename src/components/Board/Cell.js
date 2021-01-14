@@ -17,7 +17,7 @@ export default function Cell(props) {
     <div className={cellStyle} onClick={handleClick}>
       {isPlayer && (
         <img
-          src={avatar}
+          src={cell.avatar}
           alt='avatar'
           // style={{
           //   top: position.y,
