@@ -20,31 +20,11 @@ export default function Cell(props) {
       y: cell.y,
     };
 
-    // const newUsersArray = users.filter((user) => user.id !== currentUser.id);
-
-    // newUsersArray.push(newCurrentUser);
-
-    // // const [firstUser, rest] = users;
-    // // const newArr = [current, rest];
-    // console.log(newUsersArray);
-    // setCurrentUser(newCurrentUser);
-    // setUsers(newUsersArray);
     socket.emit('currentUserMove', newCurrentUser);
   };
   return (
     <div className={cellStyle} onClick={handleClick}>
-      {isPlayer && (
-        <img
-          src={cell.avatar}
-          alt='avatar'
-          // style={{
-          //   top: position.y,
-          //   left: position.left,
-          //   right: position.right,
-          //   position: 'absolute',
-          // }}
-        />
-      )}
+      {isPlayer && <img src={cell.avatar} alt='avatar' />}
     </div>
   );
 }
