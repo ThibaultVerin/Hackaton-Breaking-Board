@@ -9,7 +9,53 @@
   background-color: whitesmoke;
   border-radius: 20px;
   box-shadow: 6px 6px 14px 0px rgba(159, 159, 159, 0.79);
-  width: 600px;
-  height: 400px;
-  position: absolute;
+  width: 400px;
+  height: auto;
+  position: fixed;
+  top: 30%;
+  left: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin: 5%;
+}
+
+.modalBody {
+  text-align: center;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 10px;
+  margin: 5%;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin: 5%;
+}
+
+.modalButton {
+  width: 100px;
+  border-radius: 20px;
+  background-color: #eb5730;
+  text-align: center;
+  padding: 2%;
+  text-decoration: none;
+  font-family: Verdana, Geneva, sans-serif;
+  cursor: pointer;
+  border: unset;
 }
