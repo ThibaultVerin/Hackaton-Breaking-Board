@@ -80,31 +80,44 @@ const Board = () => {
   const { users, setUsers } = useContext(UserContext);
   const [board, setBoard] = useState(createBoard(wall, users));
   const [userID, setUserID] = useState();
-  const currentUser = users[0];
   console.log(board);
   // const socketRef = useRef();
   // socket = io.connect('/');
-  const socket = io('http://localhost:5000');
-
+  const socket = io('http://localhost:5000', {
+    autoConnect: false,
+  });
   useEffect(() => {
-    console.log(socket);
+    socket.open();
 
-    socket.on('connection', () => {
-      console.log('user connected');
-    });
+    let currentUser;
 
-    socket.on('userId', (id) => {
-      console.log(id);
-      currentUser.id = id;
+    socket.on('connect', () => {
+      currentUser = {
+        name: users[0].name,
+        avatar: users[0].avatar,
+        x: users[0].x,
+        y: users[0].y,
+        id: socket.id,
+      };
+      console.log(currentUser);
       setUsers([currentUser]);
-      console.log(users);
+      socket.emit('sendCurrentUser', currentUser);
     });
 
-    socket.emit('sendCurrentUser', users[0]);
     socket.on('sendNewUser', (newUser) => {
+      console.log(newUser);
       setUsers((prevState) => [...prevState, newUser]);
-      socket.emit('sendCurrentUser', users[0]);
+      console.log(users);
+      socket.emit('clientSendFirstUser', currentUser);
     });
+
+    socket.on('serverSendFirstUser', (newUser) => {
+      setUsers((prevState) => [...prevState, newUser]);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return <div className='board-container'>{drawBoard(board, users)}</div>;
