@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import './Board.scss';
 import { io } from 'socket.io-client';
+import uuid from 'react-uuid';
 
 import { UserContext } from '../../context/UserContext';
 
@@ -14,6 +15,7 @@ export const createEmptyBoard = () => {
       board[x][y] = {
         x,
         y,
+        id: uuid(),
         isPeople: false,
         isWall: false,
       };
@@ -24,10 +26,10 @@ export const createEmptyBoard = () => {
 
 export const drawBoard = (board, user) => {
   return board.map((row) => {
-    return row.map((cell, index) => {
+    return row.map((cell) => {
       return user.map((u) => {
         return (
-          <div key={index} className={cell.isWall ? 'wall' : 'cell'}>
+          <div key={cell.id} className={cell.isWall ? 'wall' : 'cell'}>
             {cell.isPeople && <img src={u.avatar} alt='avatar' />}
           </div>
         );
@@ -61,8 +63,8 @@ export const populateWithPeople = (board, people) => {
 
 export const createBoard = (wall, people) => {
   const b = createEmptyBoard();
-  populateWithWall(b, wall);
-  populateWithPeople(b, people);
+  // populateWithWall(b, wall);
+  // populateWithPeople(b, people);
   return b;
 };
 
@@ -76,11 +78,25 @@ export const wall = [
   { x: 5, y: 8 },
 ];
 
+const initialBoard = createBoard(wall);
+
 const Board = () => {
   const { users, setUsers } = useContext(UserContext);
-  const [board, setBoard] = useState(createBoard(wall, users));
+  const [board, setBoard] = useState(initialBoard);
   const [userID, setUserID] = useState();
   console.log(board);
+
+  const debug = (board, people) => {
+    board.forEach((row) => {
+      row.forEach((cell) => {
+        if (cell.x === 5 && cell.y === 9) {
+          console.log(true);
+        }
+      });
+    });
+  };
+
+  debug(board);
   // const socketRef = useRef();
   // socket = io.connect('/');
   const socket = io('http://localhost:5000', {
@@ -90,6 +106,7 @@ const Board = () => {
     socket.open();
 
     let currentUser;
+    let usersRegistered = [];
 
     socket.on('connect', () => {
       currentUser = {
@@ -106,13 +123,29 @@ const Board = () => {
 
     socket.on('sendNewUser', (newUser) => {
       console.log(newUser);
-      setUsers((prevState) => [...prevState, newUser]);
-      console.log(users);
+
+      const userAlreadyExist = usersRegistered.some(
+        (user) => user.id === newUser.id
+      );
+      console.log(userAlreadyExist);
+
+      if (!userAlreadyExist) {
+        usersRegistered.push(newUser);
+        setUsers((prevState) => [...prevState, newUser]);
+      }
       socket.emit('clientSendFirstUser', currentUser);
     });
 
     socket.on('serverSendFirstUser', (newUser) => {
-      setUsers((prevState) => [...prevState, newUser]);
+      const userAlreadyExist = usersRegistered.some(
+        (user) => user.id === newUser.id
+      );
+      console.log(userAlreadyExist);
+
+      if (!userAlreadyExist.length) {
+        usersRegistered.push(newUser);
+        setUsers((prevState) => [...prevState, newUser]);
+      }
     });
 
     return () => {
