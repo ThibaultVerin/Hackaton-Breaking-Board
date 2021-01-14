@@ -31,11 +31,6 @@ export default function Cell(props) {
     // setUsers(newUsersArray);
     socket.emit('currentUserMove', newCurrentUser);
   };
-
-  // useEffect(() => {
-  //   socket.on('currentUserMove', currentUser);
-  // }, [currentUser]);
-
   return (
     <div className={cellStyle} onClick={handleClick}>
       {isPlayer && (
