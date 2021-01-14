@@ -25,8 +25,8 @@ const Upload = () => {
       {
         name: res.data.name,
         avatar: `http://localhost:5000/${res.data.path}`,
-        x: 0,
-        y: 0,
+        x: Math.floor(Math.random() * 10),
+        y: Math.floor(Math.random() * 10),
       },
     ]);
   };
