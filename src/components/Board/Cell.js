@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../context/UserContext';
 
 export default function Cell(props) {
-  const { cellStyle, isPlayer, cell } = props;
+  const { cellStyle, isPlayer, cell, handleClassname } = props;
   const { users, setUsers, currentUser, setCurrentUser, socket } = useContext(
     UserContext
   );
@@ -33,7 +33,7 @@ export default function Cell(props) {
     socket.emit('currentUserMove', newCurrentUser);
   };
   return (
-    <div className={cellStyle} onClick={handleClick}>
+    <div className={handleClassname(cell)} onClick={handleClick}>
       {isPlayer && (
         <img
           src={cell.avatar}

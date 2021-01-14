@@ -47,9 +47,13 @@ export const drawBoard = (board, user) => {
     return row.map((cell, index) => {
       return user.map((u) => {
         return (
-          <div key={index} className={handleClassname(cell)}>
-            {cell.isPeople && <img src={u.avatar} alt='avatar' />}
-          </div>
+          <Cell
+            key={index}
+            cellStyle={cell.isWall ? 'wall' : 'cell'}
+            isPlayer={cell.isPeople}
+            cell={cell}
+            handleClassname={handleClassname}
+          />
         );
       });
     });
