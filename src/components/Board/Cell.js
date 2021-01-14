@@ -5,14 +5,19 @@ import { UserContext } from '../../context/UserContext';
 export default function Cell(props) {
   const { cellStyle, isPlayer, cell } = props;
   const { users, setUsers } = useContext(UserContext);
-
+  let current = {};
   const handleClick = (e) => {
-    console.log(e.target);
-    // const x = e.nativeEvent.clientX,
-    //   y = e.nativeEvent.clientY;
-    // setUsers({ x, y });
+    current = {
+      // eslint-disable-next-line no-restricted-globals
+      name: users.name,
+      avatar: users.avatar,
+      x: cell.x,
+      y: cell.y,
+    };
+    console.log(users);
+    console.log(current);
   };
-
+  console.log(users.name);
   return (
     <div className={cellStyle} onClick={handleClick}>
       {isPlayer && (
