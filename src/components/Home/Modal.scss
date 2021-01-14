@@ -4,3 +4,12 @@
   margin: 0;
   padding: 0;
 }
+
+.modalBackground {
+  background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 6px 6px 14px 0px rgba(159, 159, 159, 0.79);
+  width: 600px;
+  height: 400px;
+  position: absolute;
+}
