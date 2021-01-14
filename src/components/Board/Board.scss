@@ -7,16 +7,16 @@
 
 .board-container {
   display: flex;
-  margin: 0px auto;
+  margin: 50px auto 0px;
   flex-wrap: wrap;
-  width: 750px;
-  height: 500px;
+  width: 650px;
+  height: 650px;
   border: 1px solid black;
 }
 
 .cell {
-  width: 50px;
-  height: 50px;
+  width: 65px;
+  height: 65px;
   cursor: pointer;
   img {
     width: 100%;
@@ -26,19 +26,45 @@
 }
 
 .wall {
-  width: 50px;
-  height: 50px;
+  width: 65px;
+  height: 65px;
   background-image: url('./Pictures/wall.png');
-  background-size: 50px;
+  background-size: 65px;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .coffee {
-  width: 50px;
-  height: 50px;
+  width: 65px;
+  height: 65px;
   background-image: url('./Pictures/coffee.png');
-  background-size: 50px;
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.computer {
+  width: 65px;
+  height: 65px;
+  background-image: url('./Pictures/computer.png');
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.desk {
+  width: 65px;
+  height: 65px;
+  background-image: url('./Pictures/desk.png');
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.tree {
+  width: 65px;
+  height: 65px;
+  background-image: url('./Pictures/tree.png');
+  background-size: 65px;
   background-repeat: no-repeat;
   background-position: center;
 }
