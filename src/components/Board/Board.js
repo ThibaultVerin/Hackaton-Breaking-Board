@@ -6,7 +6,7 @@ import uuid from 'react-uuid';
 import { UserContext } from '../../context/UserContext';
 
 export const createEmptyBoard = () => {
-  const BOARD_SIZE = 15;
+  const BOARD_SIZE = 10;
   const board = new Array(BOARD_SIZE);
 
   for (let x = 0; x < BOARD_SIZE; x++) {
@@ -172,19 +172,25 @@ const Board = () => {
   }, []);
 
   useEffect(() => {
-    console.log('must emit');
-
     socket.on('otherUserMove', (data) => {
-      console.log('reception nouvelles coordonnées');
-      const userIndex = users.findIndex((user) => user.id === data.id);
-      console.log(userIndex);
+      // console.log('reception nouvelles coordonnées');
+      // const userIndex = users.findIndex((user) => user.id === data.id);
+      // console.log(userIndex);
+      console.log('data', data);
 
+      console.log('users', users);
       const newUsersArray = users.filter((user) => user.id !== data.id);
+      console.log('before reception', newUsersArray);
 
       newUsersArray.push(data);
+      console.log('users', users);
+      console.log('array', newUsersArray);
+      // if (data.id === currentUser.id) {
+      //   setCurrentUser(data);
+      // }
       setUsers(newUsersArray);
     });
-  }, [currentUser]);
+  }, []);
 
   return <div className='board-container'>{drawBoard(board, users)}</div>;
 };

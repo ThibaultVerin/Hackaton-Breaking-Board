@@ -20,16 +20,15 @@ export default function Cell(props) {
       y: cell.y,
     };
 
-    const newUsersArray = users.filter((user) => user.id !== currentUser.id);
+    // const newUsersArray = users.filter((user) => user.id !== currentUser.id);
 
-    newUsersArray.push(newCurrentUser);
+    // newUsersArray.push(newCurrentUser);
 
-    // const [firstUser, rest] = users;
-    // const newArr = [current, rest];
-    console.log(socket);
-    console.log(newCurrentUser);
-    setCurrentUser(newCurrentUser);
-    setUsers(newUsersArray);
+    // // const [firstUser, rest] = users;
+    // // const newArr = [current, rest];
+    // console.log(newUsersArray);
+    // setCurrentUser(newCurrentUser);
+    // setUsers(newUsersArray);
     socket.emit('currentUserMove', newCurrentUser);
   };
 
