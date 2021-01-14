@@ -1,26 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import avatar from '../../avatar.jpeg';
+import { UserContext } from '../../context/UserContext';
 
 export default function Cell(props) {
   const { cellStyle, isPlayer, cell } = props;
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const { users, setUsers } = useContext(UserContext);
 
-  const handleClick = (cell) => {
-    console.log(cell);
+  const handleClick = (e) => {
+    console.log(e.target);
+    // const x = e.nativeEvent.clientX,
+    //   y = e.nativeEvent.clientY;
+    // setUsers({ x, y });
   };
 
   return (
-    <div className={cellStyle} onClick={(cell) => handleClick(cell)}>
+    <div className={cellStyle} onClick={handleClick}>
       {isPlayer && (
         <img
           src={avatar}
           alt='avatar'
-          style={{
-            top: position.y,
-            left: position.left,
-            right: position.right,
-            position: 'absolute',
-          }}
+          // style={{
+          //   top: position.y,
+          //   left: position.left,
+          //   right: position.right,
+          //   position: 'absolute',
+          // }}
         />
       )}
     </div>

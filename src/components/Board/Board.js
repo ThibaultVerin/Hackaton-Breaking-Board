@@ -27,21 +27,21 @@ export const createEmptyBoard = () => {
 export const drawBoard = (board, user) => {
   return board.map((row) => {
     return row.map((cell, index) => {
-      // return (
-      //   <Cell
-      //     key={index}
-      //     cellStyle={cell.isWall ? 'wall' : 'cell'}
-      //     isPlayer={cell.isPeople}
-      //     cell={cell}
-      //   />
-      // );
-      return user.map((u) => {
-        return (
-          <div key={index} className={cell.isWall ? 'wall' : 'cell'}>
-            {cell.isPeople && <img src={u.avatar} alt='avatar' />}
-          </div>
-        );
-      });
+      return (
+        <Cell
+          key={index}
+          cellStyle={cell.isWall ? 'wall' : 'cell'}
+          isPlayer={cell.isPeople}
+          cell={cell}
+        />
+      );
+      // return user.map((u) => {
+      //   return (
+      //     <div key={index} className={cell.isWall ? 'wall' : 'cell'}>
+      //       {cell.isPeople && <img src={u.avatar} alt='avatar' />}
+      //     </div>
+      //   );
+      // });
     });
   });
 };
