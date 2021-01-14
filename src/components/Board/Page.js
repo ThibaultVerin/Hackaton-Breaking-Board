@@ -7,6 +7,7 @@ const Page = () => {
       subtitle: 'Les CHINCHILLAS',
       message: 'You got a notification',
       native: true,
+      duration: 5000,
     });
   };
 
