@@ -1,11 +1,8 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import './Board.scss';
-<<<<<<< HEAD
 import avatar from '../../avatar.jpeg';
 import io from 'socket.io-client';
-=======
 import uuid from 'react-uuid';
->>>>>>> people-movement
 
 import { UserContext } from '../../context/UserContext';
 
@@ -117,10 +114,6 @@ export const populateWithPeople = (board, people) => {
   board.forEach((row) => {
     row.forEach((cell) => {
       people.forEach((p) => {
-<<<<<<< HEAD
-        if (p.x === cell.x && p.y === cell.y) {
-          return (cell.isPeople = true);
-=======
         if (cell && p) {
           if (p.x === cell.x && p.y === cell.y) {
             cell.isPeople = true;
@@ -128,7 +121,6 @@ export const populateWithPeople = (board, people) => {
             cell.user = p;
             return cell;
           }
->>>>>>> people-movement
         }
       });
     });
@@ -182,32 +174,17 @@ export const tree = [
 ];
 
 const Board = () => {
-<<<<<<< HEAD
-  const { users, setUsers } = useContext(UserContext);
-  const [board, setBoard] = useState(
-    createBoard(tree, desk, computer, coffee, wall, users)
-  );
-=======
   const { users, setUsers, currentUser, setCurrentUser, socket } = useContext(
     UserContext
   );
-  const initialBoard = createBoard(wall, users);
+  const initialBoard = createBoard(tree, desk, computer, coffee, wall, users);
 
   const [board, setBoard] = useState(initialBoard);
->>>>>>> people-movement
   const [userID, setUserID] = useState();
   console.log(board);
   const socketRef = useRef();
   useEffect(() => {
-<<<<<<< HEAD
-    socketRef.current = io.connect('/');
-    socketRef.current.on('your id', (id) => {
-      setUserID(id);
-    });
-    socketRef.current.on('message', (message) => {});
-  }, []);
-=======
-    const newBoard = createBoard(wall, users);
+    const newBoard = createBoard(tree, desk, computer, coffee, wall, users);
     console.log('set new board');
     setBoard(newBoard);
   }, [users]);
@@ -277,7 +254,6 @@ const Board = () => {
     });
   }, [currentUser]);
 
->>>>>>> people-movement
   return <div className='board-container'>{drawBoard(board, users)}</div>;
 };
 export default Board;
