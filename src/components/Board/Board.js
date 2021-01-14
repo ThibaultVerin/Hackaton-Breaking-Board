@@ -76,10 +76,12 @@ export const populateWithPeople = (board, people) => {
   board.forEach((row) => {
     row.forEach((cell) => {
       people.forEach((p) => {
-        if (p.x === cell.x && p.y === cell.y) {
-          cell.isPeople = true;
-          cell.avatar = p.avatar;
-          return cell;
+        if (cell && p) {
+          if (p.x === cell.x && p.y === cell.y) {
+            cell.isPeople = true;
+            cell.avatar = p.avatar;
+            return cell;
+          }
         }
       });
     });
