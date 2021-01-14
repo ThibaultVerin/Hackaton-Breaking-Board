@@ -9,10 +9,9 @@ export default function Cell(props) {
   );
   let newCurrentUser = {};
   const handleClick = (e) => {
-    console.log(e);
+    console.log(cell.isCoffee);
     const userIndex = users.findIndex((user) => user.id === currentUser.id);
     console.log(userIndex);
-
     newCurrentUser = {
       // eslint-disable-next-line no-restricted-globals
       name: users[userIndex].name,
@@ -21,6 +20,9 @@ export default function Cell(props) {
       x: cell.x,
       y: cell.y,
     };
+    if (cell.isCoffee) {
+      return 'coffeeAction';
+    }
 
     // const newUsersArray = users.filter((user) => user.id !== currentUser.id);
 
