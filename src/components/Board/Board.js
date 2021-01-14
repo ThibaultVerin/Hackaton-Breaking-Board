@@ -72,20 +72,22 @@ export const populateWithCoffee = (board, coffee) => {
 };
 
 export const populateWithPeople = (board, people) => {
-  board.forEach((row) => {
-    row.forEach((cell) => {
-      people.forEach((p) => {
-        if (cell && p) {
-          if (p.x === cell.x && p.y === cell.y) {
-            cell.isPeople = true;
-            cell.avatar = p.avatar;
-            cell.user = p;
-            return cell;
+  if (people) {
+    board.forEach((row) => {
+      row.forEach((cell) => {
+        people.forEach((p) => {
+          if (cell && p) {
+            if (p.x === cell.x && p.y === cell.y) {
+              cell.isPeople = true;
+              cell.avatar = p.avatar;
+              cell.user = p;
+              return cell;
+            }
           }
-        }
+        });
       });
     });
-  });
+  }
 };
 
 export const createBoard = (wall, people) => {
@@ -176,19 +178,22 @@ const Board = () => {
       // console.log('reception nouvelles coordonnées');
       // const userIndex = users.findIndex((user) => user.id === data.id);
       // console.log(userIndex);
-      console.log('data', data);
+      // console.log('data', data);
 
-      console.log('users', users);
-      const newUsersArray = users.filter((user) => user.id !== data.id);
-      console.log('before reception', newUsersArray);
+      // console.log('users', users);
+      // const newUsersArray = users.filter((user) => user.id !== data.id);
+      // console.log('before reception', newUsersArray);
 
-      newUsersArray.push(data);
-      console.log('users', users);
-      console.log('array', newUsersArray);
-      // if (data.id === currentUser.id) {
-      //   setCurrentUser(data);
-      // }
-      setUsers(newUsersArray);
+      // newUsersArray.push(data);
+      // console.log('users', users);
+      // console.log('array', newUsersArray);
+      // // if (data.id === currentUser.id) {
+      // //   setCurrentUser(data);
+      // // }
+      // setUsers(newUsersArray);
+      setUsers((users) => {
+        return [...users.filter((user) => user.id !== data.id), data];
+      });
     });
   }, []);
 
