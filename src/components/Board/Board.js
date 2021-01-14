@@ -4,6 +4,7 @@ import avatar from '../../avatar.jpeg';
 import io from 'socket.io-client';
 import uuid from 'react-uuid';
 import Cell from './Cell';
+import Background from '../Home/Background';
 
 import { UserContext } from '../../context/UserContext';
 
@@ -265,7 +266,11 @@ const Board = () => {
       setUsers(newUsersArray);
     });
   }, []);
-
-  return <div className='board-container'>{drawBoard(board, users)}</div>;
+  return (
+    <div>
+      <Background />
+      <div className='board-container'>{drawBoard(board, users)}</div>
+    </div>
+  );
 };
 export default Board;

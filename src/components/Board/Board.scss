@@ -12,11 +12,13 @@
   width: 650px;
   height: 650px;
   border: 1px solid black;
+  position: relative;
 }
 
 .cell {
   width: 65px;
   height: 65px;
+  background: linear-gradient(45deg, #f6f6f6, #c6c6c6);
   cursor: pointer;
   img {
     width: 100%;
