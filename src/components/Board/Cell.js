@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../context/UserContext';
 
 export default function Cell(props) {
-  const { cellStyle, isPlayer, cell, handleClassname } = props;
+  const { isPlayer, cell, handleClassname } = props;
   const { users, setUsers, currentUser, setCurrentUser, socket } = useContext(
     UserContext
   );
