@@ -1,7 +1,6 @@
 import Cell from './Cell';
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import './Board.scss';
-import { io } from 'socket.io-client';
 import uuid from 'react-uuid';
 
 import { UserContext } from '../../context/UserContext';
@@ -80,6 +79,7 @@ export const populateWithPeople = (board, people) => {
           if (p.x === cell.x && p.y === cell.y) {
             cell.isPeople = true;
             cell.avatar = p.avatar;
+            cell.user = p;
             return cell;
           }
         }
@@ -106,7 +106,9 @@ export const wall = [
 ];
 
 const Board = () => {
-  const { users, setUsers } = useContext(UserContext);
+  const { users, setUsers, currentUser, setCurrentUser, socket } = useContext(
+    UserContext
+  );
   const initialBoard = createBoard(wall, users);
 
   const [board, setBoard] = useState(initialBoard);
@@ -121,25 +123,24 @@ const Board = () => {
 
   // const socketRef = useRef();
   // socket = io.connect('/');
-  const socket = io('http://localhost:5000', {
-    autoConnect: false,
-  });
-  useEffect(() => {
-    socket.open();
 
-    let currentUser;
+  useEffect(() => {
     let usersRegistered = [];
+    console.log(socket);
+    socket.emit('sendCurrentUser', currentUser);
 
     socket.on('connect', () => {
-      currentUser = {
-        name: users[0].name,
-        avatar: users[0].avatar,
-        x: users[0].x,
-        y: users[0].y,
-        id: socket.id,
-      };
-      setUsers([currentUser]);
-      socket.emit('sendCurrentUser', currentUser);
+      // currentUser = {
+      //   name: users[0].name,
+      //   avatar: users[0].avatar,
+      //   x: users[0].x,
+      //   y: users[0].y,
+      //   id: socket.id,
+      // };
+      // setCurrentUser((prevData) => {
+      //   return { ...prevData, id: socket.id };
+      // });
+      // setUsers([currentUser]);
     });
 
     socket.on('sendNewUser', (newUser) => {
@@ -159,7 +160,7 @@ const Board = () => {
         (user) => user.id === newUser.id
       );
 
-      if (!userAlreadyExist.length) {
+      if (!userAlreadyExist) {
         usersRegistered.push(newUser);
         setUsers((prevState) => [...prevState, newUser]);
       }
@@ -169,6 +170,21 @@ const Board = () => {
       socket.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    console.log('must emit');
+
+    socket.on('otherUserMove', (data) => {
+      console.log('reception nouvelles coordonnées');
+      const userIndex = users.findIndex((user) => user.id === data.id);
+      console.log(userIndex);
+
+      const newUsersArray = users.filter((user) => user.id !== data.id);
+
+      newUsersArray.push(data);
+      setUsers(newUsersArray);
+    });
+  }, [currentUser]);
 
   return <div className='board-container'>{drawBoard(board, users)}</div>;
 };
