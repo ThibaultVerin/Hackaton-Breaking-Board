@@ -43,7 +43,7 @@ export const handleClassname = (cell) => {
     return 'cell';
   }
 };
-console.log(handleClassname);
+
 export const drawBoard = (board, user) => {
   return board.map((row) => {
     return row.map((cell, index) => {

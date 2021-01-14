@@ -34,18 +34,7 @@ export default function Cell(props) {
   };
   return (
     <div className={cell && handleClassname(cell)} onClick={handleClick}>
-      {isPlayer && (
-        <img
-          src={cell.avatar}
-          alt='avatar'
-          // style={{
-          //   top: position.y,
-          //   left: position.left,
-          //   right: position.right,
-          //   position: 'absolute',
-          // }}
-        />
-      )}
+      {isPlayer && <img src={cell.avatar} alt='avatar' />}
     </div>
   );
 }
