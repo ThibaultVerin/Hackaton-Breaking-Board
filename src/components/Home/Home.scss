@@ -4,3 +4,12 @@
   margin: 0;
   padding: 0;
 }
+
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  position: relative;
+  top: 15vh;
+}
