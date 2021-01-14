@@ -12,11 +12,13 @@
   width: 650px;
   height: 650px;
   border: 1px solid black;
+  position: relative;
 }
 
 .cell {
   width: 65px;
   height: 65px;
+  background: linear-gradient(45deg, #f6f6f6, #c6c6c6);
   cursor: pointer;
   img {
     width: 100%;
@@ -32,6 +34,7 @@
   background-size: 65px;
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
 }
 
 .coffee {
@@ -41,6 +44,7 @@
   background-size: 65px;
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
 }
 
 .computer {
@@ -50,6 +54,7 @@
   background-size: 65px;
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
 }
 .desk {
   width: 65px;
@@ -58,6 +63,7 @@
   background-size: 65px;
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
 }
 
 .tree {
@@ -67,4 +73,12 @@
   background-size: 65px;
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
+}
+
+.coffeeAction {
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

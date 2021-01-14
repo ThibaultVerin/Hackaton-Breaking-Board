@@ -2,6 +2,9 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import './Board.scss';
 import avatar from '../../avatar.jpeg';
 import io from 'socket.io-client';
+import uuid from 'react-uuid';
+import Cell from './Cell';
+import Background from '../Home/Background';
 
 import { UserContext } from '../../context/UserContext';
 
@@ -26,7 +29,7 @@ export const createEmptyBoard = () => {
   }
   return board;
 };
-const handleClassname = (cell) => {
+export const handleClassname = (cell) => {
   if (cell.isWall === true) {
     return 'wall';
   } else if (cell.isCoffee === true) {
@@ -41,16 +44,19 @@ const handleClassname = (cell) => {
     return 'cell';
   }
 };
+
 export const drawBoard = (board, user) => {
   return board.map((row) => {
     return row.map((cell, index) => {
-      return user.map((u) => {
-        return (
-          <div key={index} className={handleClassname(cell)}>
-            {cell.isPeople && <img src={u.avatar} alt='avatar' />}
-          </div>
-        );
-      });
+      return (
+        <Cell
+          key={index}
+          cellStyle={cell.isWall ? 'wall' : 'cell'}
+          isPlayer={cell.isPeople}
+          cell={cell}
+          // handleClassname={handleClassname}
+        />
+      );
     });
   });
 };
@@ -110,15 +116,22 @@ export const populateWithWall = (board, wall) => {
   });
 };
 export const populateWithPeople = (board, people) => {
-  board.forEach((row) => {
-    row.forEach((cell) => {
-      people.forEach((p) => {
-        if (p.x === cell.x && p.y === cell.y) {
-          return (cell.isPeople = true);
-        }
+  if (people) {
+    board.forEach((row) => {
+      row.forEach((cell) => {
+        people.forEach((p) => {
+          if (cell && p) {
+            if (p.x === cell.x && p.y === cell.y) {
+              cell.isPeople = true;
+              cell.avatar = p.avatar;
+              cell.user = p;
+              return cell;
+            }
+          }
+        });
       });
     });
-  });
+  }
 };
 export const createBoard = (tree, desk, computer, coffee, wall, people) => {
   const b = createEmptyBoard();
@@ -168,20 +181,72 @@ export const tree = [
 ];
 
 const Board = () => {
-  const { users, setUsers } = useContext(UserContext);
-  const [board, setBoard] = useState(
-    createBoard(tree, desk, computer, coffee, wall, users)
+  const { users, setUsers, currentUser, setCurrentUser, socket } = useContext(
+    UserContext
   );
+  const initialBoard = createBoard(tree, desk, computer, coffee, wall, users);
+
+  const [board, setBoard] = useState(initialBoard);
   const [userID, setUserID] = useState();
   console.log(board);
   const socketRef = useRef();
   useEffect(() => {
-    socketRef.current = io.connect('/');
-    socketRef.current.on('your id', (id) => {
-      setUserID(id);
+    const newBoard = createBoard(tree, desk, computer, coffee, wall, users);
+    console.log('set new board');
+    setBoard(newBoard);
+  }, [users]);
+
+  // const socketRef = useRef();
+  // socket = io.connect('/');
+
+  useEffect(() => {
+    let usersRegistered = [];
+    console.log(socket);
+    socket.emit('sendCurrentUser', currentUser);
+
+    socket.on('connect', () => {});
+
+    socket.on('sendNewUser', (newUser) => {
+      const userAlreadyExist = usersRegistered.some(
+        (user) => user.id === newUser.id
+      );
+
+      if (!userAlreadyExist) {
+        usersRegistered.push(newUser);
+        setUsers((prevState) => [...prevState, newUser]);
+      }
+      socket.emit('clientSendFirstUser', currentUser);
     });
-    socketRef.current.on('message', (message) => {});
+
+    socket.on('serverSendFirstUser', (newUser) => {
+      const userAlreadyExist = usersRegistered.some(
+        (user) => user.id === newUser.id
+      );
+
+      if (!userAlreadyExist) {
+        usersRegistered.push(newUser);
+        setUsers((prevState) => [...prevState, newUser]);
+      }
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
-  return <div className='board-container'>{drawBoard(board, users)}</div>;
+
+  useEffect(() => {
+    socket.on('otherUserMove', (data) => {
+      setUsers((users) => {
+        return [...users.filter((user) => user.id !== data.id), data];
+      });
+    });
+  }, []);
+
+  return (
+    <div>
+      <Background />
+      <div className='board-container'>{drawBoard(board, users)}</div>
+    </div>
+  );
 };
 export default Board;
