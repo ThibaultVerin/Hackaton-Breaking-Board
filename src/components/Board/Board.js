@@ -5,8 +5,10 @@ import io from 'socket.io-client';
 import uuid from 'react-uuid';
 import Cell from './Cell';
 import Background from '../Home/Background';
+import Action from '../Action/Action';
 
 import { UserContext } from '../../context/UserContext';
+// import Action from '../Action/Action';
 
 export const createEmptyBoard = () => {
   const BOARD_SIZE = 10;
@@ -181,18 +183,23 @@ export const tree = [
 ];
 
 const Board = () => {
-  const { users, setUsers, currentUser, setCurrentUser, socket } = useContext(
-    UserContext
-  );
+  const {
+    users,
+    setUsers,
+    currentUser,
+    setCurrentUser,
+    isActionOpen,
+    setIsActionopen,
+    socket,
+  } = useContext(UserContext);
+
   const initialBoard = createBoard(tree, desk, computer, coffee, wall, users);
 
   const [board, setBoard] = useState(initialBoard);
   const [userID, setUserID] = useState();
-  console.log(board);
   const socketRef = useRef();
   useEffect(() => {
     const newBoard = createBoard(tree, desk, computer, coffee, wall, users);
-    console.log('set new board');
     setBoard(newBoard);
   }, [users]);
 
@@ -201,7 +208,6 @@ const Board = () => {
 
   useEffect(() => {
     let usersRegistered = [];
-    console.log(socket);
     socket.emit('sendCurrentUser', currentUser);
 
     socket.on('connect', () => {});
@@ -245,6 +251,7 @@ const Board = () => {
   return (
     <div>
       <Background />
+      {isActionOpen ? <Action /> : ''}
       <div className='board-container'>{drawBoard(board, users)}</div>
     </div>
   );
