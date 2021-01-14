@@ -24,15 +24,6 @@ export default function Cell(props) {
       return 'coffeeAction';
     }
 
-    // const newUsersArray = users.filter((user) => user.id !== currentUser.id);
-
-    // newUsersArray.push(newCurrentUser);
-
-    // // const [firstUser, rest] = users;
-    // // const newArr = [current, rest];
-    // console.log(newUsersArray);
-    // setCurrentUser(newCurrentUser);
-    // setUsers(newUsersArray);
     socket.emit('currentUserMove', newCurrentUser);
   };
   return (

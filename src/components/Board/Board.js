@@ -48,17 +48,15 @@ export const handleClassname = (cell) => {
 export const drawBoard = (board, user) => {
   return board.map((row) => {
     return row.map((cell, index) => {
-      return user.map((u) => {
-        return (
-          <Cell
-            key={index}
-            cellStyle={cell.isWall ? 'wall' : 'cell'}
-            isPlayer={cell.isPeople}
-            cell={cell}
-            // handleClassname={handleClassname}
-          />
-        );
-      });
+      return (
+        <Cell
+          key={index}
+          cellStyle={cell.isWall ? 'wall' : 'cell'}
+          isPlayer={cell.isPeople}
+          cell={cell}
+          // handleClassname={handleClassname}
+        />
+      );
     });
   });
 };
@@ -118,20 +116,22 @@ export const populateWithWall = (board, wall) => {
   });
 };
 export const populateWithPeople = (board, people) => {
-  board.forEach((row) => {
-    row.forEach((cell) => {
-      people.forEach((p) => {
-        if (cell && p) {
-          if (p.x === cell.x && p.y === cell.y) {
-            cell.isPeople = true;
-            cell.avatar = p.avatar;
-            cell.user = p;
-            return cell;
+  if (people) {
+    board.forEach((row) => {
+      row.forEach((cell) => {
+        people.forEach((p) => {
+          if (cell && p) {
+            if (p.x === cell.x && p.y === cell.y) {
+              cell.isPeople = true;
+              cell.avatar = p.avatar;
+              cell.user = p;
+              return cell;
+            }
           }
-        }
+        });
       });
     });
-  });
+  }
 };
 export const createBoard = (tree, desk, computer, coffee, wall, people) => {
   const b = createEmptyBoard();
@@ -204,19 +204,7 @@ const Board = () => {
     console.log(socket);
     socket.emit('sendCurrentUser', currentUser);
 
-    socket.on('connect', () => {
-      // currentUser = {
-      //   name: users[0].name,
-      //   avatar: users[0].avatar,
-      //   x: users[0].x,
-      //   y: users[0].y,
-      //   id: socket.id,
-      // };
-      // setCurrentUser((prevData) => {
-      //   return { ...prevData, id: socket.id };
-      // });
-      // setUsers([currentUser]);
-    });
+    socket.on('connect', () => {});
 
     socket.on('sendNewUser', (newUser) => {
       const userAlreadyExist = usersRegistered.some(
@@ -248,22 +236,9 @@ const Board = () => {
 
   useEffect(() => {
     socket.on('otherUserMove', (data) => {
-      // console.log('reception nouvelles coordonnées');
-      // const userIndex = users.findIndex((user) => user.id === data.id);
-      // console.log(userIndex);
-      console.log('data', data);
-
-      console.log('users', users);
-      const newUsersArray = users.filter((user) => user.id !== data.id);
-      console.log('before reception', newUsersArray);
-
-      newUsersArray.push(data);
-      console.log('users', users);
-      console.log('array', newUsersArray);
-      // if (data.id === currentUser.id) {
-      //   setCurrentUser(data);
-      // }
-      setUsers(newUsersArray);
+      setUsers((users) => {
+        return [...users.filter((user) => user.id !== data.id), data];
+      });
     });
   }, []);
 
