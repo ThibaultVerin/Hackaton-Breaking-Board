@@ -7,17 +7,18 @@ import io from 'socket.io-client';
 import { UserContext } from '../../context/UserContext';
 
 export const createEmptyBoard = () => {
-  const BOARD_SIZE = 10;
+  const BOARD_SIZE = 15;
   const board = new Array(BOARD_SIZE);
 
   for (let x = 0; x < BOARD_SIZE; x++) {
-    board[x] = new Array(BOARD_SIZE);
-    for (let y = 0; y < BOARD_SIZE; y++) {
+    board[x] = new Array(10);
+    for (let y = 0; y < 10; y++) {
       board[x][y] = {
         x,
         y,
         isPeople: false,
         isWall: false,
+        isCoffee: false,
       };
     }
   }
@@ -57,6 +58,18 @@ export const populateWithWall = (board, wall) => {
     });
   });
 };
+export const populateWithCoffee = (board, coffee) => {
+  board.forEach((row) => {
+    row.forEach((cell) => {
+      coffee.forEach((wCell) => {
+        if (wCell.x === cell.x && wCell.y === cell.y) {
+          return (cell.isCoffee = true);
+        }
+      });
+    });
+  });
+};
+
 export const populateWithPeople = (board, people) => {
   board.forEach((row) => {
     row.forEach((cell) => {
@@ -77,13 +90,13 @@ export const createBoard = (wall, people) => {
 };
 
 export const wall = [
-  { x: 0, y: 4 },
-  { x: 1, y: 4 },
-  { x: 3, y: 0 },
-  { x: 3, y: 1 },
-  { x: 3, y: 2 },
-  { x: 5, y: 9 },
-  { x: 5, y: 8 },
+  { x: 0, y: 6 },
+  { x: 0, y: 7 },
+  { x: 1, y: 6 },
+  // { x: 6, y: 3 },
+  // { x: 3, y: 0 },
+  // { x: 3, y: 2 },
+  // { x: 3, y: 3 },
 ];
 
 const Board = () => {
