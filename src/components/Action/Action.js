@@ -3,9 +3,14 @@ import { UserContext } from '../../context/UserContext';
 import './Action.scss';
 
 const Action = () => {
-  const { users, setUsers, currentUser, setCurrentUser } = useContext(
-    UserContext
-  );
+  const {
+    users,
+    setUsers,
+    currentUser,
+    setCurrentUser,
+    isCoffeTaken,
+    setIsCoffeeTaken,
+  } = useContext(UserContext);
 
   const handleCoffee = () => {
     const currentUserTemp = [];
@@ -19,6 +24,7 @@ const Action = () => {
     userTemp[1].x = 3;
     userTemp[1].y = 2;
 
+    setIsCoffeeTaken(true);
     setUsers(userTemp);
     console.log(users);
   };
