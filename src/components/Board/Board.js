@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './Board.scss';
 import Cell from './Cell';
 import CoffeeChat from '../../component/home/Chat';
@@ -185,9 +185,8 @@ const Board = () => {
     users,
     setUsers,
     currentUser,
-    setCurrentUser,
     isActionOpen,
-    setIsActionopen,
+    isCoffeeTaken,
     socket,
   } = useContext(UserContext);
 
@@ -246,7 +245,7 @@ const Board = () => {
       <Background />
       {isActionOpen && <Action />}
       <div className='board-container'>{drawBoard(board, users)}</div>
-      <CoffeeChat />
+      {isCoffeeTaken && <CoffeeChat />}
     </div>
   );
 };
