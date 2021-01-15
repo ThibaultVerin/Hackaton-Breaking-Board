@@ -3,10 +3,17 @@ import { UserContext } from '../../context/UserContext';
 import './Action.scss';
 import addNotification from 'react-push-notification';
 
-const Action = (props) => {
-  const { users, setUsers, currentUser, setCurrentUser } = useContext(
-    UserContext
-  );
+const Action = () => {
+  const {
+    users,
+    setUsers,
+    currentUser,
+    setCurrentUser,
+    isCoffeeTaken,
+    setIsCoffeeTaken,
+    playerShot,
+    socket,
+  } = useContext(UserContext);
 
   const handleCoffee = () => {
     const currentUserTemp = [];
@@ -20,8 +27,10 @@ const Action = (props) => {
     userTemp[1].x = 3;
     userTemp[1].y = 2;
 
+    setIsCoffeeTaken(true);
     setUsers(userTemp);
     console.log(users);
+    buttonClick();
   };
 
   const buttonClick = () => {
@@ -33,21 +42,42 @@ const Action = (props) => {
       duration: 5000,
     });
   };
+  const shootPlayer = () => {
+    console.log(playerShot);
+
+    const updateUser = {
+      // eslint-disable-next-line no-restricted-globals
+      name: playerShot.name,
+      avatar: playerShot.avatar,
+      id: playerShot.id,
+      x: playerShot.x,
+      y: playerShot.y,
+      life: playerShot.life - 10,
+      nerf: playerShot.nerf,
+    };
+
+    const updateCurrentUser = {
+      nerf: currentUser.nerf - 1,
+      name: currentUser.name,
+      avatar: currentUser.avatar,
+      id: currentUser.id,
+      x: currentUser.x,
+      y: currentUser.y,
+      life: currentUser.life,
+    };
+
+    socket.emit('currentUserMove', updateCurrentUser);
+    socket.emit('currentUserMove', updateUser);
+    socket.emit('shot', `${currentUser.name} just shot ${playerShot.name} `);
+  };
 
   return (
     <div>
       <h3>Choose Your Action</h3>
       <div>
-        <div
-          onClick={() => {
-            handleCoffee();
-            buttonClick();
-          }}
-        >
-          Drink Coffee
-        </div>
-        <div onClick={buttonClick}>SHOOT</div>
-        <div onClick={buttonClick}>Challenge + name</div>
+        <div onClick={handleCoffee}>Drink Coffee</div>
+        <div onClick={shootPlayer}>SHOOT </div>
+        <div>Challenge + name</div>
       </div>
     </div>
   );

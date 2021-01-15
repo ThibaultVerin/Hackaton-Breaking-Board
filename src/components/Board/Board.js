@@ -6,8 +6,10 @@ import uuid from 'react-uuid';
 import Cell from './Cell';
 import Background from '../Home/Background';
 import Action from '../Action/Action';
+import addNotification from 'react-push-notification';
 
 import { UserContext } from '../../context/UserContext';
+import CurrentUser from '../CurrentUser/CurrentUser';
 // import Action from '../Action/Action';
 
 export const createEmptyBoard = () => {
@@ -182,6 +184,8 @@ export const tree = [
   { x: 9, y: 7 },
 ];
 
+export const shootPlayer = () => {};
+
 const Board = () => {
   const {
     users,
@@ -235,6 +239,17 @@ const Board = () => {
       }
     });
 
+    socket.on('shot-notification', (message) => {
+      console.log(message);
+      addNotification({
+        title: 'Message:',
+        subtitle: 'Coffee break',
+        message: message,
+        native: true,
+        duration: 5000,
+      });
+    });
+
     return () => {
       socket.disconnect();
     };
@@ -245,12 +260,29 @@ const Board = () => {
       setUsers((users) => {
         return [...users.filter((user) => user.id !== data.id), data];
       });
+      if (data.id === currentUser.id) {
+        setCurrentUser(data);
+      }
     });
   }, []);
+
+  const notif = () => {
+    console.log('notif');
+    addNotification({
+      title: 'Warning',
+      subtitle: 'This is a subtitle',
+      message: 'This is a very long message',
+      theme: 'darkblue',
+      native: true, // when using native, your OS will handle theming.
+    });
+  };
 
   return (
     <div>
       <Background />
+      <CurrentUser />
+      <button onClick={notif}>Notif</button>
+
       {isActionOpen && <Action />}
 
       <div className='board-container'>{drawBoard(board, users)}</div>
