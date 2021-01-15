@@ -6,7 +6,6 @@ const CoffeeChat = () => {
   const { currentUser, socket } = useContext(UserContext);
   const [messageArray, setMessageArray] = useState([]);
   const [message, setMessage] = useState('');
-  console.log(socket);
   useEffect(() => {
     socket.on('message', (message) => {
       console.log(message);
@@ -17,7 +16,6 @@ const CoffeeChat = () => {
   const receivedMessage = (message) => {
     setMessageArray((oldMsgs) => [...oldMsgs, message]);
   };
-  console.log(currentUser);
   const sendMessage = (e) => {
     e.preventDefault();
     const messageObject = {

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../context/UserContext';
 import './Action.scss';
 
@@ -6,18 +6,18 @@ const Action = () => {
   const {
     users,
     setUsers,
-    currentUser,
-    setCurrentUser,
-    isCoffeTaken,
+
     setIsCoffeeTaken,
   } = useContext(UserContext);
-
   const handleCoffee = () => {
-    const currentUserTemp = [];
-
     const userTemp = [];
     users.forEach((e) => {
-      userTemp.push({ name: e.name, avatar: e.avatar, id: e.id });
+      userTemp.push({
+        name: e.name,
+        avatar: e.avatar,
+        id: e.id,
+        isCoffeeTaken: true,
+      });
     });
     userTemp[0].x = 3;
     userTemp[0].y = 0;
@@ -26,7 +26,6 @@ const Action = () => {
 
     setIsCoffeeTaken(true);
     setUsers(userTemp);
-    console.log(users);
   };
 
   return (

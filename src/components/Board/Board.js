@@ -6,7 +6,6 @@ import Background from '../Home/Background';
 import Action from '../Action/Action';
 
 import { UserContext } from '../../context/UserContext';
-// import Action from '../Action/Action';
 
 export const createEmptyBoard = () => {
   const BOARD_SIZE = 10;
@@ -54,7 +53,6 @@ export const drawBoard = (board, user) => {
           cellStyle={cell.isWall ? 'wall' : 'cell'}
           isPlayer={cell.isPeople}
           cell={cell}
-          // handleClassname={handleClassname}
         />
       );
     });
