@@ -30,21 +30,10 @@ const Action = () => {
     setIsCoffeeTaken(true);
     setUsers(userTemp);
     console.log(users);
-    buttonClick();
+    socket.emit('notification', 'Wanna get a coffee ?');
   };
 
-  const buttonClick = () => {
-    addNotification({
-      title: 'Message:',
-      subtitle: 'Coffee break',
-      message: 'Wanna get a coffee?',
-      native: true,
-      duration: 5000,
-    });
-  };
   const shootPlayer = () => {
-    console.log(playerShot);
-
     const updateUser = {
       // eslint-disable-next-line no-restricted-globals
       name: playerShot.name,
@@ -68,7 +57,10 @@ const Action = () => {
 
     socket.emit('currentUserMove', updateCurrentUser);
     socket.emit('currentUserMove', updateUser);
-    socket.emit('shot', `${currentUser.name} just shot ${playerShot.name} `);
+    socket.emit(
+      'notification',
+      `${currentUser.name} just shot ${playerShot.name} `
+    );
   };
 
   return (

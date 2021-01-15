@@ -239,11 +239,12 @@ const Board = () => {
       }
     });
 
-    socket.on('shot-notification', (message) => {
+    socket.emit('notification', `${currentUser.name} just join the board !`);
+
+    socket.on('send-notification', (message) => {
       console.log(message);
       addNotification({
-        title: 'Message:',
-        subtitle: 'Coffee break',
+        title: 'BREAKING BOARD',
         message: message,
         native: true,
         duration: 5000,
@@ -266,22 +267,10 @@ const Board = () => {
     });
   }, []);
 
-  const notif = () => {
-    console.log('notif');
-    addNotification({
-      title: 'Warning',
-      subtitle: 'This is a subtitle',
-      message: 'This is a very long message',
-      theme: 'darkblue',
-      native: true, // when using native, your OS will handle theming.
-    });
-  };
-
   return (
     <div>
       <Background />
       <CurrentUser />
-      <button onClick={notif}>Notif</button>
 
       {isActionOpen && <Action />}
 

@@ -25,6 +25,7 @@ const Play = () => {
 
   useEffect(() => {
     socket.emit('joinShifoumi', 'room1');
+    socket.emit('notification', `${currentUser.name} is playing Shi Fu Mi `);
 
     socket.on('welcome', (data) => {
       console.log(data);
@@ -127,12 +128,12 @@ const Play = () => {
               alt={player1.name}
               className='avatarimg'
               style={{
-                width: 300,
-                height: 400,
+                width: 150,
+                height: 150,
                 position: 'absolute',
-                left: 50,
-                bottom: 150,
-                borderRadius: 20,
+                left: 150,
+                bottom: 100,
+                borderRadius: '50%',
               }}
             />
             <div className='scorePartDoctor'>
@@ -148,12 +149,12 @@ const Play = () => {
               src={player2 && player2.avatar}
               alt={player2 && player2.name}
               style={{
-                width: 300,
-                height: 400,
+                width: 150,
+                height: 150,
                 position: 'absolute',
-                right: 50,
-                bottom: 150,
-                borderRadius: 20,
+                right: 150,
+                bottom: 100,
+                borderRadius: '50%',
               }}
             />
             <div className='scorePartJesus'>
