@@ -20,10 +20,11 @@ export default function Cell(props) {
     console.log(users);
     console.log(isPlayer);
 
-    // if (isPlayer) {
-    //   console.log('Melon');
-    //   setIsActionOpen(true);
-    // }
+    if (isPlayer) {
+      setIsActionOpen(true);
+    } else {
+      setIsActionOpen(false);
+    }
 
     const userIndex = users.findIndex((user) => user.id === currentUser.id);
 
@@ -40,7 +41,7 @@ export default function Cell(props) {
   };
 
   return (
-    <div className={cell && handleClassname(cell)} onClick={handleClick()}>
+    <div className={cell && handleClassname(cell)} onClick={handleClick}>
       {isPlayer && <img src={cell.avatar} alt='avatar' />}
     </div>
   );

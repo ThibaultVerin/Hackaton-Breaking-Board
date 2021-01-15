@@ -251,7 +251,7 @@ const Board = () => {
   return (
     <div>
       <Background />
-      {isActionOpen ? <Action /> : ''}
+      {isActionOpen && <Action />}
       <div className='board-container'>{drawBoard(board, users)}</div>
     </div>
   );

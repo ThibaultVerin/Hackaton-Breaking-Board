@@ -6,7 +6,7 @@ export const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-  const [isActionOpen, setisActionOpen] = useState(false);
+  const [isActionOpen, setIsActionOpen] = useState(false);
   const socket = io('http://localhost:5000', {
     autoConnect: false,
   });
@@ -27,7 +27,7 @@ const UserContextProvider = ({ children }) => {
         currentUser,
         setCurrentUser,
         isActionOpen,
-        setisActionOpen,
+        setIsActionOpen,
         socket,
       }}
     >
