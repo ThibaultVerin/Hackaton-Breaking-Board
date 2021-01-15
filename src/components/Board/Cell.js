@@ -9,22 +9,40 @@ export default function Cell(props) {
   );
   let newCurrentUser = {};
   const handleClick = (e) => {
-    console.log(cell.isCoffee);
-    const userIndex = users.findIndex((user) => user.id === currentUser.id);
-    console.log(userIndex);
-    newCurrentUser = {
-      // eslint-disable-next-line no-restricted-globals
-      name: users[userIndex].name,
-      avatar: users[userIndex].avatar,
-      id: users[userIndex].id,
-      x: cell.x,
-      y: cell.y,
-    };
+    if (cell.isPeople) {
+      const userIndex = users.findIndex((user) => user.id === currentUser.id);
+      console.log(userIndex);
+      newCurrentUser = {
+        // eslint-disable-next-line no-restricted-globals
+        name: users[userIndex].name,
+        avatar: users[userIndex].avatar,
+        id: users[userIndex].id,
+        life: users[userIndex].life - 10,
+        nerf: users[userIndex].nerf - 10,
+        x: users[userIndex].x,
+        y: users[userIndex].y,
+      };
+
+      socket.emit('currentUserMove', newCurrentUser);
+    } else {
+      const userIndex = users.findIndex((user) => user.id === currentUser.id);
+      console.log(userIndex);
+      newCurrentUser = {
+        // eslint-disable-next-line no-restricted-globals
+        name: users[userIndex].name,
+        avatar: users[userIndex].avatar,
+        id: users[userIndex].id,
+        life: users[userIndex].life,
+        nerf: users[userIndex].nerf,
+        x: cell.x,
+        y: cell.y,
+      };
+      socket.emit('currentUserMove', newCurrentUser);
+    }
+
     if (cell.isCoffee) {
       return 'coffeeAction';
     }
-
-    socket.emit('currentUserMove', newCurrentUser);
   };
   return (
     <div className={cell && handleClassname(cell)} onClick={handleClick}>

@@ -180,6 +180,8 @@ export const tree = [
   { x: 9, y: 7 },
 ];
 
+export const shootPlayer = () => {};
+
 const Board = () => {
   const { users, setUsers, currentUser, setCurrentUser, socket } = useContext(
     UserContext
