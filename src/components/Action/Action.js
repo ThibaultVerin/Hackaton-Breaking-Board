@@ -49,6 +49,7 @@ const Action = () => {
     setIsClicked(true);
     setUsers(userTemp);
     console.log(users);
+
     const shootPlayer = () => {
       console.log(playerShot);
 
@@ -77,6 +78,23 @@ const Action = () => {
       socket.emit('currentUserMove', updateUser);
     };
 
+    const handleBreathe = () => {
+      const currentUserTemp = [];
+
+      const userTemp = [];
+      users.forEach((e) => {
+        userTemp.push({ name: e.name, avatar: e.avatar, id: e.id });
+      });
+      userTemp[0].x = 8;
+      userTemp[0].y = 7;
+      userTemp[1].x = 8;
+      userTemp[1].y = 8;
+
+      setIsClicked(true);
+      setIsCoffeeTaken(true);
+      setUsers(userTemp);
+    };
+
     return (
       <div>
         {' '}
@@ -87,8 +105,9 @@ const Action = () => {
             <h3>Choose Your Action</h3>
             <div className='actionLink'>
               <p onClick={handleCoffee}>Drink Coffee</p>
-              <p>SHOOT</p>
+              <p onClick={shootPlayer}>SHOOT</p>
               <p onClick={handleGame}>Challenge</p>
+              <p onClick={handleBreathe}>Breathe Some Fresh Air</p>
             </div>
           </div>
         )}

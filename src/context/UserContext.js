@@ -7,12 +7,8 @@ const UserContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [isActionOpen, setIsActionOpen] = useState(false);
-<<<<<<< HEAD
-  const [isCoffeeTaken, setIsCoffeeTaken] = useState(false);
-=======
   const [isCoffeeTaken, setIsCoffeTaken] = useState(false);
   const [playerShot, setPlayerShot] = useState();
->>>>>>> dev
   const socket = io('http://localhost:5000', {
     autoConnect: false,
   });
@@ -35,7 +31,7 @@ const UserContextProvider = ({ children }) => {
         isActionOpen,
         setIsActionOpen,
         isCoffeeTaken,
-        setIsCoffeeTaken,
+        setIsCoffeTaken,
         socket,
         playerShot,
         setPlayerShot,
