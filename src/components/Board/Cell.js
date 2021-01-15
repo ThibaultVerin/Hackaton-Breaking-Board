@@ -1,8 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { handleClassname } from './Board';
+import './Cell.css';
 
 export default function Cell(props) {
+  const [isShown, setIsShown] = useState(false);
+
   const { isPlayer, cell } = props;
   const {
     users,
@@ -39,10 +42,21 @@ export default function Cell(props) {
 
     socket.emit('currentUserMove', newCurrentUser);
   };
+  console.log(currentUser.name);
 
   return (
     <div className={cell && handleClassname(cell)} onClick={handleClick}>
-      {isPlayer && <img src={cell.avatar} alt='avatar' />}
+      <div className='display-name'>
+        {isShown && <div>{currentUser.name} </div>}
+      </div>
+      {isPlayer && (
+        <img
+          src={cell.avatar}
+          alt='avatar'
+          onMouseEnter={() => setIsShown(true)}
+          onMouseLeave={() => setIsShown(false)}
+        />
+      )}
     </div>
   );
 }
