@@ -25,6 +25,7 @@ const Play = () => {
 
   useEffect(() => {
     socket.emit('joinShifoumi', 'room1');
+    socket.emit('notification', `${currentUser.name} is playing Shi Fu Mi `);
 
     socket.on('welcome', (data) => {
       console.log(data);
