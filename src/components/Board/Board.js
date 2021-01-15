@@ -1,9 +1,7 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './Board.scss';
-import avatar from '../../avatar.jpeg';
-import io from 'socket.io-client';
-import uuid from 'react-uuid';
 import Cell from './Cell';
+import CoffeeChat from '../../component/home/Chat';
 import Background from '../Home/Background';
 import Action from '../Action/Action';
 import addNotification from 'react-push-notification';
@@ -58,7 +56,6 @@ export const drawBoard = (board, user) => {
           cellStyle={cell.isWall ? 'wall' : 'cell'}
           isPlayer={cell.isPeople}
           cell={cell}
-          // handleClassname={handleClassname}
         />
       );
     });
@@ -193,22 +190,18 @@ const Board = () => {
     currentUser,
     setCurrentUser,
     isActionOpen,
-    setIsActionopen,
+    isCoffeeTaken,
+    setIsCoffeeTaken,
     socket,
   } = useContext(UserContext);
 
   const initialBoard = createBoard(tree, desk, computer, coffee, wall, users);
 
   const [board, setBoard] = useState(initialBoard);
-  const [userID, setUserID] = useState();
-  const socketRef = useRef();
   useEffect(() => {
     const newBoard = createBoard(tree, desk, computer, coffee, wall, users);
     setBoard(newBoard);
   }, [users]);
-
-  // const socketRef = useRef();
-  // socket = io.connect('/');
 
   useEffect(() => {
     let usersRegistered = [];
@@ -237,6 +230,9 @@ const Board = () => {
         usersRegistered.push(newUser);
         setUsers((prevState) => [...prevState, newUser]);
       }
+    });
+    socket.on('openChat', () => {
+      setIsCoffeeTaken(true);
     });
 
     socket.emit('notification', `${currentUser.name} just join the board !`);
@@ -275,6 +271,7 @@ const Board = () => {
       {isActionOpen && <Action />}
 
       <div className='board-container'>{drawBoard(board, users)}</div>
+      <CoffeeChat />
     </div>
   );
 };
