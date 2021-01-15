@@ -1,61 +1,112 @@
 .playBody {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-h1 {
-    margin-top: 50px;
-    text-align: center;
+h1  {
+  margin-top: 50px;
+  text-align: center;
 }
 
 .playPart {
-    display: flex;
-    margin-top: 50px;
-    width: 60%;
+  display: flex;
+  margin-top: 50px;
+  width: 60%;
 }
 
 .playerChoice {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    height: 400px;
-    width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 400px;
+  width: 50%;
 }
 
 .playerChoice img {
-    width: 100px;
-    cursor: pointer;
-    border-radius: 20px;
+  width: 100px;
+  cursor: pointer;
+  border-radius: 20px;
 }
 
 .playerChoice img:hover {
-    width: 150px;
+  width: 150px;
 }
 
 .computerChoice {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 400px;
-    width: 50%;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 400px;
+  width: 50%;
+  align-items: center;
 }
 
 .computerChoice img {
-    width: 100px;
-    border-radius: 20px;
+  width: 100px;
+  border-radius: 20px;
 }
 
-.scorePartDoctor{
-    position: absolute;
-    bottom: 50px;
-    left: 140px;
+.scorePartDoctor {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  bottom: 50px;
+  left: 140px;
+  margin-top: 10px;
 }
 
-.scorePartJesus{
-    position: absolute;
-    bottom: 50px;
-    right: 170px;
+.scorePartJesus {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  bottom: 50px;
+  right: 170px;
+  margin-top: 10px;
 }
+
+.win {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  align-items: center;
+  background-color: #36a9e1;
+  padding: 2%;
+  border-radius: 20px;
+  box-shadow: 6px 6px 14px 0px rgba(159, 159, 159, 0.79);
+  color: #eb5730;
+  font-weight: bold;
+}
+
+.input-play {
+  margin-bottom: 10px;
+  border-radius: 20px;
+  text-align: center;
+  padding: 10px;
+  width: 200px;
+  margin: 3%;
+  border: unset;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.play-again {
+  display: flex;
+  margin-top: 10px;
+
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .button {
+  border-radius: 20px;
+  text-align: center;
+  padding: 2%;
+  width: 200px;
+  margin: 3%;
+  border: unset;
+  cursor: pointer;
+} */

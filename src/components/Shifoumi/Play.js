@@ -91,112 +91,101 @@ const Play = () => {
     }
   }, [playerChoice, computerChoice]);
 
-  const showWinner = () => {
-    if (!victorious) {
-      return (
-        <div className='playBody'>
-          <h1>Challenge me if you dare !</h1>
-          <h2>{isWinner}</h2>
-          <div className='playPart'>
-            <div className='playerChoice'>
-              <img
-                src={paper}
-                alt={paper}
-                className='playerWeapon'
-                onClick={() => {
-                  setPlayerChoice(1);
-                }}
-              />
-              <img
-                src={cisors}
-                alt={cisors}
-                onClick={() => {
-                  setPlayerChoice(2);
-                }}
-              />
-              <img
-                src={rock}
-                alt={rock}
-                onClick={() => {
-                  setPlayerChoice(3);
-                }}
-              />
-            </div>
-            <img
-              src={player1.avatar}
-              alt={player1.name}
-              className='avatarimg'
-              style={{
-                width: 300,
-                height: 400,
-                position: 'absolute',
-                left: 50,
-                bottom: 150,
-                borderRadius: 20,
-              }}
-            />
-            <div className='scorePartDoctor'>
-              <p>{player1 && player1.name}</p>
-              <h2>Score : {playerCounter}</h2>
-            </div>
-            <div className='computerChoice'>
-              <img src={paperReverse} alt={paperReverse} />
-              <img src={cisorsReverse} alt={cisorsReverse} />
-              <img src={rockReverse} alt={rockReverse} />
-            </div>
-            <img
-              src={player2 && player2.avatar}
-              alt={player2 && player2.name}
-              style={{
-                width: 300,
-                height: 400,
-                position: 'absolute',
-                right: 50,
-                bottom: 150,
-                borderRadius: 20,
-              }}
-            />
-            <div className='scorePartJesus'>
-              <p>{player2 && player2.name}</p>
-
-              <h2>Score : {computerCounter}</h2>
-            </div>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <img
-            src={doctor}
-            alt='aa'
-            style={{
-              width: 300,
-              height: 400,
-              position: 'absolute',
-              right: 50,
-              bottom: 150,
-              borderRadius: 20,
-            }}
-          />
-          {/* {victorious.name} */}
-          Player 1 won the game !
-          <div>
-            <input type='button' value='Play again' onClick={reset} />
-            <Link to={'/board'}>Back</Link>
-          </div>
-        </div>
-      );
-    }
-  };
-
   const reset = () => {
     setVictorious();
     setPlayerCounter(0);
     setComputerCounter(0);
   };
 
-  return <>{showWinner()}</>;
+  return (
+    <>
+      <div className='playBody'>
+        <h1>Challenge me if you dare !</h1>
+        <h2>{isWinner}</h2>
+        {victorious && (
+          <div className='win'>
+            Player 1 won the game !
+            <div className='play-again'>
+              <input
+                className='input-play'
+                type='button'
+                value='Play again'
+                onClick={reset}
+              />
+              <Link className='button' to={'/board'}>
+                Back
+              </Link>
+            </div>
+          </div>
+        )}
+        <div className='playPart'>
+          <div className='playerChoice'>
+            <img
+              src={paper}
+              alt={paper}
+              className='playerWeapon'
+              onClick={() => {
+                setPlayerChoice(1);
+              }}
+            />
+            <img
+              src={cisors}
+              alt={cisors}
+              onClick={() => {
+                setPlayerChoice(2);
+              }}
+            />
+            <img
+              src={rock}
+              alt={rock}
+              onClick={() => {
+                setPlayerChoice(3);
+              }}
+            />
+          </div>
+          <img
+            src={player1.avatar}
+            alt={player1.name}
+            className='avatarimg'
+            style={{
+              width: 150,
+              height: 150,
+              position: 'absolute',
+              left: 150,
+              bottom: 100,
+              borderRadius: '50%',
+            }}
+          />
+          <div className='scorePartDoctor'>
+            <p>{player1 && player1.name}</p>
+            <h2>Score : {playerCounter}</h2>
+          </div>
+          <div className='computerChoice'>
+            <img src={paperReverse} alt={paperReverse} />
+            <img src={cisorsReverse} alt={cisorsReverse} />
+            <img src={rockReverse} alt={rockReverse} />
+          </div>
+          <img
+            src={player2 && player2.avatar}
+            alt={player2 && player2.name}
+            style={{
+              width: 150,
+              height: 150,
+              position: 'absolute',
+              left: 150,
+              bottom: 100,
+              borderRadius: '50%',
+            }}
+          />
+          <div className='scorePartJesus'>
+            <p>{player2 && player2.name}</p>
+
+            <h2>Score : {computerCounter}</h2>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Play;
