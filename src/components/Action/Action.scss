@@ -4,3 +4,38 @@
   margin: 0;
   padding: 0;
 }
+
+.actionMenu {
+  width: 250px;
+  height: 185px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #36a9e1;
+  color: white;
+  font-family: Verdana, Geneva, sans-serif;
+  position: absolute;
+  top: 25%;
+  right: 10%;
+  h3 {
+    margin-top: 15px;
+    font-weight: bolder;
+  }
+}
+
+.actionLink {
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+  p:hover {
+    font-weight: bolder;
+    font-size: 20px;
+    color: #eb5730;
+  }
+}
