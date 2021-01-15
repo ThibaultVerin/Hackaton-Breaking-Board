@@ -32,6 +32,23 @@ const Action = () => {
     console.log(users);
   };
 
+  const handleGame = () => {
+    const currentUserTemp = [];
+
+    const userTemp = [];
+    users.forEach((e) => {
+      userTemp.push({ name: e.name, avatar: e.avatar, id: e.id });
+    });
+    userTemp[0].x = 0;
+    userTemp[0].y = 7;
+    userTemp[1].x = 0;
+    userTemp[1].y = 9;
+
+    setIsClicked(true);
+    setUsers(userTemp);
+    console.log(users);
+  };
+
   return (
     <div>
       {' '}
@@ -43,7 +60,7 @@ const Action = () => {
           <div className='actionLink'>
             <p onClick={handleCoffee}>Drink Coffee</p>
             <p>SHOOT</p>
-            <p>Challenge + name</p>
+            <p onClick={handleGame}>Challenge</p>
           </div>
         </div>
       )}
