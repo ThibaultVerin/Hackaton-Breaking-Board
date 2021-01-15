@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import './Action.scss';
+import addNotification from 'react-push-notification';
 
 const Action = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -30,11 +31,10 @@ const Action = () => {
     setIsCoffeeTaken(true);
     setUsers(userTemp);
     console.log(users);
+    socket.emit('notification', 'Wanna get a coffee ?');
   };
 
   const shootPlayer = () => {
-    console.log(playerShot);
-
     const updateUser = {
       // eslint-disable-next-line no-restricted-globals
       name: playerShot.name,
@@ -58,6 +58,10 @@ const Action = () => {
 
     socket.emit('currentUserMove', updateCurrentUser);
     socket.emit('currentUserMove', updateUser);
+    socket.emit(
+      'notification',
+      `${currentUser.name} just shot ${playerShot.name} `
+    );
   };
 
   const handleBreathe = () => {
