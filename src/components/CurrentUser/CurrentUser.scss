@@ -1,22 +1,55 @@
 .user-container {
-  width: 100px;
+  width: 400px;
+  height: 100px;
   margin: 20px auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  background-color: #36a9e1;
+  border-radius: 20px;
+  color: white;
+  font-family: Verdana, Geneva, sans-serif;
+  font-weight: bold;
   img {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     margin-right: 20px;
   }
+}
+
+.user-info {
+  width: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.user-data {
+  width: 150px;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-right: 10px;
   div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    div {
-      padding-bottom: 5px;
-    }
+    padding-bottom: 5px;
   }
+}
+
+.lifeContainer {
+  width: 150px;
+  height: 5px;
+  background-color: white;
+  border: solid 1px white;
+  border-radius: 40px;
+}
+
+.lifeBar {
+  height: 5px;
+  position: absolute;
+  border-radius: 40px;
+  background-color: #36a9e1;
 }

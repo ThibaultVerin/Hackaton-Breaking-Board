@@ -42,7 +42,7 @@ const Action = () => {
       id: playerShot.id,
       x: playerShot.x,
       y: playerShot.y,
-      life: playerShot.life - 10,
+      life: playerShot.life - 30,
       nerf: playerShot.nerf,
     };
 
