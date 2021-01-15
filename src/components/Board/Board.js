@@ -3,8 +3,10 @@ import './Board.scss';
 import Cell from './Cell';
 import CoffeeChat from '../../component/home/Chat';
 import Background from '../Home/Background';
+import Action from '../Action/Action';
 
 import { UserContext } from '../../context/UserContext';
+// import Action from '../Action/Action';
 
 export const createEmptyBoard = () => {
   const BOARD_SIZE = 10;
@@ -179,15 +181,21 @@ export const tree = [
 ];
 
 const Board = () => {
-  const { users, setUsers, currentUser, setCurrentUser, socket } = useContext(
-    UserContext
-  );
+  const {
+    users,
+    setUsers,
+    currentUser,
+    setCurrentUser,
+    isActionOpen,
+    setIsActionopen,
+    socket,
+  } = useContext(UserContext);
+
   const initialBoard = createBoard(tree, desk, computer, coffee, wall, users);
 
   const [board, setBoard] = useState(initialBoard);
   useEffect(() => {
     const newBoard = createBoard(tree, desk, computer, coffee, wall, users);
-    console.log('set new board');
     setBoard(newBoard);
   }, [users]);
 
@@ -236,6 +244,7 @@ const Board = () => {
   return (
     <div>
       <Background />
+      {isActionOpen && <Action />}
       <div className='board-container'>{drawBoard(board, users)}</div>
       <CoffeeChat />
     </div>
