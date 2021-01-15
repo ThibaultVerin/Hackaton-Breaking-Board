@@ -46,8 +46,8 @@ const Action = (props) => {
         >
           Drink Coffee
         </div>
-        <div>SHOOT</div>
-        <div>Challenge + name</div>
+        <div onClick={buttonClick}>SHOOT</div>
+        <div onClick={buttonClick}>Challenge + name</div>
       </div>
     </div>
   );
