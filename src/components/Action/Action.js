@@ -17,8 +17,6 @@ const Action = () => {
   } = useContext(UserContext);
 
   const handleCoffee = () => {
-    const currentUserTemp = [];
-
     const userTemp = [];
     users.forEach((e) => {
       userTemp.push({ name: e.name, avatar: e.avatar, id: e.id });
@@ -35,8 +33,6 @@ const Action = () => {
   };
 
   const handleGame = () => {
-    const currentUserTemp = [];
-
     const userTemp = [];
     users.forEach((e) => {
       userTemp.push({ name: e.name, avatar: e.avatar, id: e.id });
@@ -78,6 +74,21 @@ const Action = () => {
     socket.emit('currentUserMove', updateUser);
   };
 
+  const handleBreathe = () => {
+    const userTemp = [];
+    users.forEach((e) => {
+      userTemp.push({ name: e.name, avatar: e.avatar, id: e.id });
+    });
+    userTemp[0].x = 8;
+    userTemp[0].y = 7;
+    userTemp[1].x = 8;
+    userTemp[1].y = 8;
+
+    setIsClicked(true);
+    setIsCoffeeTaken(true);
+    setUsers(userTemp);
+  };
+
   return (
     <>
       {!isClicked && (
@@ -85,8 +96,9 @@ const Action = () => {
           <h3>Choose Your Action</h3>
           <div className='actionLink'>
             <p onClick={handleCoffee}>Drink Coffee</p>
-            <p onClick={shootPlayer}>SHOOT </p>
-            <p onClick={handleGame}>Challenge + name</p>
+            <p onClick={shootPlayer}>SHOOOOOOT</p>
+            <p onClick={handleGame}>Challenge {playerShot.name}</p>
+            <p onClick={handleBreathe}>Breathe Some Fresh Air</p>
           </div>
         </div>
       )}

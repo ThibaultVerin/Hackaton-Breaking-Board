@@ -7,7 +7,7 @@
 
 .actionMenu {
   width: 250px;
-  height: 185px;
+  height: 220px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -17,7 +17,7 @@
   color: white;
   font-family: Verdana, Geneva, sans-serif;
   position: absolute;
-  top: 25%;
+  top: 35%;
   right: 10%;
   h3 {
     margin-top: 15px;
@@ -26,7 +26,7 @@
 }
 
 .actionLink {
-  height: 75px;
+  height: 125px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
