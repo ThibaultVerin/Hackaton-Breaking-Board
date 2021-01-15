@@ -1,0 +1,84 @@
+@import '../variablesCSS';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.board-container {
+  display: flex;
+  margin: 0px auto 0px;
+  flex-wrap: wrap;
+  width: 650px;
+  height: 650px;
+  border: 1px solid black;
+  position: relative;
+}
+
+.cell {
+  width: 65px;
+  height: 65px;
+  background: linear-gradient(45deg, #f6f6f6, #c6c6c6);
+  cursor: pointer;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+}
+
+.wall {
+  width: 65px;
+  height: 65px;
+  background-image: url('./Pictures/wall.png');
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.coffee {
+  width: 65px;
+  height: 65px;
+  background-image: url('./Pictures/coffee.png');
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.computer {
+  width: 65px;
+  height: 65px;
+  background-image: url('./Pictures/computer.png');
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+.desk {
+  width: 65px;
+  height: 65px;
+  background-image: url('./Pictures/desk.png');
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.tree {
+  width: 65px;
+  height: 65px;
+  background-image: url('./Pictures/tree.png');
+  background-size: 65px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+.coffeeAction {
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
