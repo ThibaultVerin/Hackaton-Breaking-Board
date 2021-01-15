@@ -1,12 +1,44 @@
 .ChatContainer {
   position: absolute;
-  top: 30%;
-  left: 5%;
-  width: 200px;
-  height: 200px;
-  background-color: red;
+  top: 25%;
+  left: 13%;
+  width: 300px;
+  height: 250px;
+  background-color: #36a9e1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+textarea {
+  background-color: lightblue;
+  letter-spacing: 1px;
+  outline: none;
+  width: 100%;
+  height: 40px;
+  line-height: 20px;
+  border-radius: 5px;
+}
+
+.button-chat {
+  margin-top: 5px;
+  background-color: #eb5730;
+  border: none;
+  border-radius: 10px;
+  font-size: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+  color: white;
+}
+
+.title-chat {
+  color: white;
+}
+
+.textZone {
+  color: white;
 }

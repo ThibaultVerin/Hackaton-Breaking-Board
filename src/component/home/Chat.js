@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import io from 'socket.io-client';
+import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import '../Chat.scss';
 
 const CoffeeChat = () => {
-  const { users, setUsers, currentUser, setCurrentUSer, socket } = useContext(
-    UserContext
-  );
+  const { currentUser, socket } = useContext(UserContext);
   const [messageArray, setMessageArray] = useState([]);
   const [message, setMessage] = useState('');
   console.log(socket);
@@ -36,7 +33,7 @@ const CoffeeChat = () => {
   };
   return (
     <div className='ChatContainer'>
-      Let's chat !
+      <h2 className='title-chat'>Let's chat!</h2>
       {messageArray.map((message, index) => {
         return (
           <p key={index}>
@@ -48,9 +45,11 @@ const CoffeeChat = () => {
         <form onSubmit={sendMessage}>
           <textarea
             onChange={handleChatChange}
-            placeholder='say something...'
+            placeholder='Say something...'
           />
-          <button type='submit'>Send</button>
+          <button className='button-chat' type='submit'>
+            Send
+          </button>
         </form>
       </div>
     </div>
