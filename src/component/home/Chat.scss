@@ -1,0 +1,67 @@
+.ChatContainer {
+  position: absolute;
+  top: 25%;
+  left: 3%;
+  width: 300px;
+  height: 250px;
+  background-color: #36a9e1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+textarea {
+  background-color: lightblue;
+  letter-spacing: 1px;
+  outline: none;
+  width: 100%;
+  height: 40px;
+  line-height: 20px;
+  border-radius: 5px;
+}
+
+.button-chat {
+  margin-top: 5px;
+  background-color: #eb5730;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+  color: black;
+}
+
+.title-chat {
+  color: white;
+}
+
+.textZone {
+  color: black;
+}
+
+.user-message {
+  width: 200px;
+  padding: 3%;
+  color: black;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1%;
+}
+
+.message-container {
+  width: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
