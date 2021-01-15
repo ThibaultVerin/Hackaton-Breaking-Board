@@ -6,6 +6,9 @@ export const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
+  const [isActionOpen, setIsActionOpen] = useState(false);
+  const [isCoffeeTaken, setIsCoffeTaken] = useState(false);
+  const [playerShot, setPlayerShot] = useState();
   const socket = io('http://localhost:5000', {
     autoConnect: false,
   });
@@ -20,7 +23,17 @@ const UserContextProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ users, setUsers, currentUser, setCurrentUser, socket }}
+      value={{
+        users,
+        setUsers,
+        currentUser,
+        setCurrentUser,
+        isActionOpen,
+        setIsActionOpen,
+        socket,
+        playerShot,
+        setPlayerShot,
+      }}
     >
       {children}
     </UserContext.Provider>
