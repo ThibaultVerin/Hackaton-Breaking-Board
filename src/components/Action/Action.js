@@ -9,6 +9,7 @@ const Action = () => {
   const {
     users,
     setUsers,
+
     currentUser,
     setCurrentUser,
     isCoffeeTaken,
@@ -16,11 +17,15 @@ const Action = () => {
     playerShot,
     socket,
   } = useContext(UserContext);
-
   const handleCoffee = () => {
     const userTemp = [];
     users.forEach((e) => {
-      userTemp.push({ name: e.name, avatar: e.avatar, id: e.id });
+      userTemp.push({
+        name: e.name,
+        avatar: e.avatar,
+        id: e.id,
+        isCoffeeTaken: true,
+      });
     });
     userTemp[0].x = 3;
     userTemp[0].y = 0;
@@ -32,6 +37,7 @@ const Action = () => {
     setUsers(userTemp);
     console.log(users);
     socket.emit('notification', 'Wanna get a coffee ?');
+    socket.emit('takeCoffee', 'coucou');
   };
 
   const shootPlayer = () => {

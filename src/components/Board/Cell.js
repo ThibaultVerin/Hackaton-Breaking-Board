@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import { handleClassname, shootPlayer } from './Board';
 import { useHistory } from 'react-router-dom';
