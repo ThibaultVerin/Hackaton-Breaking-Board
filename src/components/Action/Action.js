@@ -12,6 +12,8 @@ const Action = () => {
     setCurrentUser,
     isCoffeTaken,
     setIsCoffeeTaken,
+    playerShot,
+    socket,
   } = useContext(UserContext);
 
   const handleCoffee = () => {
@@ -47,25 +49,52 @@ const Action = () => {
     setIsClicked(true);
     setUsers(userTemp);
     console.log(users);
-  };
+    const shootPlayer = () => {
+      console.log(playerShot);
 
-  return (
-    <div>
-      {' '}
-      {isClicked ? (
-        ''
-      ) : (
-        <div className='actionMenu'>
-          <h3>Choose Your Action</h3>
-          <div className='actionLink'>
-            <p onClick={handleCoffee}>Drink Coffee</p>
-            <p>SHOOT</p>
-            <p onClick={handleGame}>Challenge</p>
+      const updateUser = {
+        // eslint-disable-next-line no-restricted-globals
+        name: playerShot.name,
+        avatar: playerShot.avatar,
+        id: playerShot.id,
+        x: playerShot.x,
+        y: playerShot.y,
+        life: playerShot.life - 10,
+        nerf: playerShot.nerf,
+      };
+
+      const updateCurrentUser = {
+        nerf: currentUser.nerf - 1,
+        name: currentUser.name,
+        avatar: currentUser.avatar,
+        id: currentUser.id,
+        x: currentUser.x,
+        y: currentUser.y,
+        life: currentUser.life,
+      };
+
+      socket.emit('currentUserMove', updateCurrentUser);
+      socket.emit('currentUserMove', updateUser);
+    };
+
+    return (
+      <div>
+        {' '}
+        {isClicked ? (
+          ''
+        ) : (
+          <div className='actionMenu'>
+            <h3>Choose Your Action</h3>
+            <div className='actionLink'>
+              <p onClick={handleCoffee}>Drink Coffee</p>
+              <p>SHOOT</p>
+              <p onClick={handleGame}>Challenge</p>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
+  };
 };
 
 export default Action;
