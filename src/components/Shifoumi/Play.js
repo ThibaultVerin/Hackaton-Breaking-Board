@@ -105,7 +105,7 @@ const Play = () => {
         <h2>{isWinner}</h2>
         {victorious && (
           <div className='win'>
-            Player 1 won the game !
+            {victorious.name} won the game !
             <div className='play-again'>
               <input
                 className='input-play'
