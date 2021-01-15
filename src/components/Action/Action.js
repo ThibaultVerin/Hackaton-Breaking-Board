@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
 import './Action.scss';
 
 const Action = () => {
+  const [isClicked, setIsClicked] = useState(false);
+
   const {
     users,
     setUsers,
@@ -24,6 +26,7 @@ const Action = () => {
     userTemp[1].x = 3;
     userTemp[1].y = 2;
 
+    setIsClicked(true);
     setIsCoffeeTaken(true);
     setUsers(userTemp);
     console.log(users);
@@ -31,12 +34,19 @@ const Action = () => {
 
   return (
     <div>
-      <h3>Choose Your Action</h3>
-      <div>
-        <div onClick={handleCoffee}>Drink Coffee</div>
-        <div>SHOOT</div>
-        <div>Challenge + name</div>
-      </div>
+      {' '}
+      {isClicked ? (
+        ''
+      ) : (
+        <div className='actionMenu'>
+          <h3>Choose Your Action</h3>
+          <div className='actionLink'>
+            <p onClick={handleCoffee}>Drink Coffee</p>
+            <p>SHOOT</p>
+            <p>Challenge + name</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
