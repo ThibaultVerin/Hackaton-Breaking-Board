@@ -11,6 +11,7 @@
   align-items: center;
   border-radius: 10px;
   padding: 10px;
+  animation: showChat 3s;
 }
 
 textarea {
@@ -41,4 +42,31 @@ textarea {
 
 .textZone {
   color: white;
+}
+
+.user-message {
+  width: 200px;
+  padding: 3%;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1%;
+}
+
+.message-container {
+  width: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+@keyframes showChat {
+  from {
+    transform: translatex();
+  }
 }

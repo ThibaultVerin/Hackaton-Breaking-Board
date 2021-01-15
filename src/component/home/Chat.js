@@ -32,13 +32,17 @@ const CoffeeChat = () => {
   return (
     <div className='ChatContainer'>
       <h2 className='title-chat'>Let's chat!</h2>
-      {messageArray.map((message, index) => {
-        return (
-          <p key={index}>
-            {message.name}: {message.body}
-          </p>
-        );
-      })}
+      <div className='message-container'>
+        {messageArray.map((message, index) => {
+          return (
+            <div className='user-message'>
+              <p key={index}>
+                {message.name}: {message.body}
+              </p>
+            </div>
+          );
+        })}
+      </div>
       <div className='textZone'>
         <form onSubmit={sendMessage}>
           <textarea
