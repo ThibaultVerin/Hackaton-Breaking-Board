@@ -4,6 +4,7 @@ import Cell from './Cell';
 import CoffeeChat from '../../component/home/Chat';
 import Background from '../Home/Background';
 import Action from '../Action/Action';
+import addNotification from 'react-push-notification';
 
 import { UserContext } from '../../context/UserContext';
 import CurrentUser from '../CurrentUser/CurrentUser';
@@ -190,6 +191,7 @@ const Board = () => {
     setCurrentUser,
     isActionOpen,
     isCoffeeTaken,
+    setIsCoffeeTaken,
     socket,
   } = useContext(UserContext);
 
@@ -229,6 +231,21 @@ const Board = () => {
         setUsers((prevState) => [...prevState, newUser]);
       }
     });
+    socket.on('openChat', () => {
+      setIsCoffeeTaken(true);
+    });
+
+    socket.emit('notification', `${currentUser.name} just join the board !`);
+
+    socket.on('send-notification', (message) => {
+      console.log(message);
+      addNotification({
+        title: 'BREAKING BOARD',
+        message: message,
+        native: true,
+        duration: 5000,
+      });
+    });
 
     return () => {
       socket.disconnect();
@@ -252,8 +269,9 @@ const Board = () => {
       <CurrentUser />
 
       {isActionOpen && <Action />}
+
       <div className='board-container'>{drawBoard(board, users)}</div>
-      {isCoffeeTaken && <CoffeeChat />}
+      <CoffeeChat />
     </div>
   );
 };
