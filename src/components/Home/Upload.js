@@ -33,6 +33,8 @@ const Upload = () => {
       x: Math.floor(Math.random() * 10),
       y: Math.floor(Math.random() * 10),
       id: uuid(),
+      life: 100,
+      nerf: 10,
     };
     await setCurrentUser(newUser);
     await setUsers([newUser]);

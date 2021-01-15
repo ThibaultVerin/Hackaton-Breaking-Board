@@ -6,6 +6,8 @@ import Background from '../Home/Background';
 import Action from '../Action/Action';
 
 import { UserContext } from '../../context/UserContext';
+import CurrentUser from '../CurrentUser/CurrentUser';
+// import Action from '../Action/Action';
 
 export const createEmptyBoard = () => {
   const BOARD_SIZE = 10;
@@ -178,11 +180,14 @@ export const tree = [
   { x: 9, y: 7 },
 ];
 
+export const shootPlayer = () => {};
+
 const Board = () => {
   const {
     users,
     setUsers,
     currentUser,
+    setCurrentUser,
     isActionOpen,
     isCoffeeTaken,
     socket,
@@ -235,12 +240,17 @@ const Board = () => {
       setUsers((users) => {
         return [...users.filter((user) => user.id !== data.id), data];
       });
+      if (data.id === currentUser.id) {
+        setCurrentUser(data);
+      }
     });
   }, []);
 
   return (
     <div>
       <Background />
+      <CurrentUser />
+
       {isActionOpen && <Action />}
       <div className='board-container'>{drawBoard(board, users)}</div>
       {isCoffeeTaken && <CoffeeChat />}
