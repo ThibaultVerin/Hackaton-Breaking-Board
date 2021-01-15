@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import './Action.scss';
 import addNotification from 'react-push-notification';
 
 const Action = () => {
+  const [isClicked, setIsClicked] = useState(false);
+
   const {
     users,
     setUsers,
@@ -16,8 +18,6 @@ const Action = () => {
   } = useContext(UserContext);
 
   const handleCoffee = () => {
-    const currentUserTemp = [];
-
     const userTemp = [];
     users.forEach((e) => {
       userTemp.push({ name: e.name, avatar: e.avatar, id: e.id });
@@ -27,6 +27,7 @@ const Action = () => {
     userTemp[1].x = 3;
     userTemp[1].y = 2;
 
+    setIsClicked(true);
     setIsCoffeeTaken(true);
     setUsers(userTemp);
     console.log(users);
@@ -63,15 +64,34 @@ const Action = () => {
     );
   };
 
+  const handleBreathe = () => {
+    const userTemp = [];
+    users.forEach((e) => {
+      userTemp.push({ name: e.name, avatar: e.avatar, id: e.id });
+    });
+    userTemp[0].x = 8;
+    userTemp[0].y = 7;
+    userTemp[1].x = 8;
+    userTemp[1].y = 8;
+
+    setIsClicked(true);
+    setIsCoffeeTaken(true);
+    setUsers(userTemp);
+  };
+
   return (
-    <div>
-      <h3>Choose Your Action</h3>
-      <div>
-        <div onClick={handleCoffee}>Drink Coffee</div>
-        <div onClick={shootPlayer}>SHOOT </div>
-        <div>Challenge + name</div>
-      </div>
-    </div>
+    <>
+      {!isClicked && (
+        <div className='actionMenu'>
+          <h3>Choose Your Action</h3>
+          <div className='actionLink'>
+            <p onClick={handleCoffee}>Drink Coffee</p>
+            <p onClick={shootPlayer}>SHOOOOOOT</p>
+            <p onClick={handleBreathe}>Breathe Some Fresh Air</p>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
