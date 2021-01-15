@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import './Action.scss';
+import addNotification from 'react-push-notification';
 
-const Action = () => {
+const Action = (props) => {
   const { users, setUsers, currentUser, setCurrentUser } = useContext(
     UserContext
   );
@@ -23,11 +24,28 @@ const Action = () => {
     console.log(users);
   };
 
+  const buttonClick = () => {
+    addNotification({
+      title: 'Message:',
+      subtitle: 'Coffee break',
+      message: 'Wanna get a coffee?',
+      native: true,
+      duration: 5000,
+    });
+  };
+
   return (
     <div>
       <h3>Choose Your Action</h3>
       <div>
-        <div onClick={handleCoffee}>Drink Coffee</div>
+        <div
+          onClick={() => {
+            handleCoffee();
+            buttonClick();
+          }}
+        >
+          Drink Coffee
+        </div>
         <div>SHOOT</div>
         <div>Challenge + name</div>
       </div>

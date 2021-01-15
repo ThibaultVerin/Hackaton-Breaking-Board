@@ -252,6 +252,7 @@ const Board = () => {
     <div>
       <Background />
       {isActionOpen && <Action />}
+
       <div className='board-container'>{drawBoard(board, users)}</div>
     </div>
   );
